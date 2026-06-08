@@ -8,7 +8,13 @@ pre-commit = "*"
 coverage = "*"
 
 [packages]
-django = "*"
+# Preventive maintenance: Django LTS upgrade
+# (Original project targeted Django 3.1)
+django = "==4.2.11"
+
+# Keep existing app deps compatible with Django 4.2
+# (left as "*" to minimize breakage; if you want pinned versions,
+# we can do that after the upgrade is validated)
 django-bootstrap4 = "*"
 django-colorfield = "*"
 daphne = "*"
@@ -18,3 +24,4 @@ python-dateutil = "*"
 
 [requires]
 python_version = "3.8"
+
