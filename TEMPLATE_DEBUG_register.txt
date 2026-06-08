@@ -1,0 +1,10 @@
+Run these in the container to find which template Django is rendering for /sheets/register/ and which template files exist:
+
+1) Check loader origin for registration/register.html
+   docker compose exec ihatetobudget-ihatetobudget-1 python manage.py shell -c "from django.template.loader import get_template; t=get_template('registration/register.html'); print(t.origin)"
+
+2) Check raw template names for register_view
+   docker compose exec ihatetobudget-ihatetobudget-1 python manage.py shell -c "import inspect; import sheets.views as v; print(inspect.getsource(v.register_view))"
+
+3) List template directory tree in container
+   docker compose exec ihatetobudget-ihatetobudget-1 sh -lc 'find /usr/src/app -path "*template*registration*" -maxdepth 6 -type f -name "register.html" -print'"}]}**/Users/amena/Downloads/ihatetobudget/TEMPLATE_DEBUG_register.txt**{
