@@ -1,0 +1,13 @@
+1) Start the server:
+   docker compose -f docker-compose.yml up -d
+
+2) Ensure DB tables exist:
+   docker compose -f docker-compose.yml exec -T ihatetobudget pipenv run python manage.py migrate
+
+3) Access:
+   http://127.0.0.1:80/
+
+4) Budget page (expected):
+   http://127.0.0.1:80/budget/
+   http://127.0.0.1:80/budget/<year>/<month>/
+

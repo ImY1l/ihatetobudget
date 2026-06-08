@@ -5,7 +5,17 @@ from . import views
 app_name = "sheets"
 urlpatterns = [
     path("", views.index, name="index"),
+    path("register/", views.register_view, name="register"),
+    path("export/csv/", views.export_csv_view, name="export_csv"),
+    #  Budget
+    path("budget/", views.budget_dashboard, name="budget_dashboard"),
+    path(
+        "budget/<int:year>/<int:month>/",
+        views.budget_dashboard,
+        name="budget_dashboard_monthly",
+    ),
     #  Sheets
+
     path(
         "<int:year>/<int:month>/",
         views.SheetView.as_view(month_format="%m"),
@@ -27,7 +37,9 @@ urlpatterns = [
     #  Categories
     path("categories/", views.CategoryListView.as_view(), name="categories"),
     path(
-        "category/new/", views.CategoryCreateView.as_view(), name="category-new"
+        "category/new/",
+        views.CategoryCreateView.as_view(),
+        name="category-new",
     ),
     path(
         "category/<int:pk>/",
@@ -40,3 +52,4 @@ urlpatterns = [
         name="category-delete",
     ),
 ]
+

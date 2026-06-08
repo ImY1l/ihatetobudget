@@ -152,7 +152,11 @@ STATICFILES_DIRS = [
 STATIC_ROOT = "/static/"
 
 
+DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+
 # Currency formatting
+
 
 CURRENCY_GROUP_SEPARATOR = os.environ.get("CURRENCY_GROUP_SEPARATOR", " ")
 CURRENCY_DECIMAL_SEPARATOR = os.environ.get("CURRENCY_DECIMAL_SEPARATOR", ",")
@@ -167,3 +171,9 @@ CRONJOBS = [
     # Thanks https://crontab.guru/#5_0_1_*_*
     ("5 0 1 * *", "sheets.cron.recurring_expenses")
 ]
+
+
+# Media (for receipt uploads)
+MEDIA_URL = "/media/"
+MEDIA_ROOT = BASE_DIR / "media"
+

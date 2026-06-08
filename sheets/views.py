@@ -3,6 +3,10 @@ import datetime
 import statistics
 from collections import defaultdict
 
+from django.contrib.auth import login as auth_login
+from django.urls import reverse
+
+
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -10,6 +14,9 @@ from django.contrib.messages.views import SuccessMessageMixin
 from django.db.models import Avg, Q, Sum
 from django.db.models.functions import TruncMonth
 from django.shortcuts import render
+
+from decimal import Decimal
+
 from django.urls import reverse_lazy
 from django.views.generic import ListView
 from django.views.generic.dates import MonthArchiveView
@@ -21,8 +28,46 @@ from ihatetobudget.utils.views import (
     SuccessMessageOnDeleteViewMixin,
 )
 
-from .forms import CategoryForm, ExpenseForm
-from .models import Category, Expense
+import csv
+import io
+
+from django.contrib.auth import login, logout
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.models import User
+
+from .forms import BudgetLimitForm, CategoryForm, CustomUserCreationForm, ExpenseForm
+from .models import BudgetLimit, Category, Expense
+
+
+def register_view(request):
+    form = CustomUserCreationForm(request.POST or None)
+
+    if request.method == "POST" and form.is_valid():
+        user = form.save()
+        login(request, user)
+        return render(request, "sheets/index.html")
+
+
+    return render(request, "registration/register.html", {"form": form})
+
+
+@login_required
+def export_csv_view(request):
+    import csv
+    from django.http import HttpResponse
+
+    response = HttpResponse(content_type="text/csv")
+    response["Content-Disposition"] = 'attachment; filename="expenses.csv"'
+
+    writer = csv.writer(response)
+    writer.writerow(["Date", "Category", "Amount", "Description"])
+
+    qs = Expense.objects.filter(user=request.user).order_by("date")
+    for e in qs:
+        writer.writerow([e.date, e.category.name if e.category else "", e.amount, e.description])
+
+    return response
 
 
 @login_required
@@ -226,3 +271,66 @@ class CategoryDeleteView(
 
     # SuccessMessageMixin
     success_message = "Category deleted!"
+
+
+@login_required
+def budget_dashboard(request, year=None, month=None):
+    today = datetime.date.today()
+    year = year or today.year
+    month = month or today.month
+
+    # Only show budgets configured by this user.
+    budgets = BudgetLimit.objects.filter(
+        user=request.user,
+        year=year,
+        month=month,
+    ).select_related("category")
+
+    # Compute spent per category in one query.
+    spent_by_category = (
+        Expense.objects.filter(
+            user=request.user,
+            date__year=year,
+            date__month=month,
+        )
+        .values("category")
+        .annotate(spent_amount=Sum("amount"))
+    )
+    spent_map = {
+        row["category_id"] if "category_id" in row else row["category"]: row[
+            "spent_amount"
+        ]
+        for row in spent_by_category
+    }
+
+    budget_status = []
+    for b in budgets:
+        spent_amount = spent_map.get(b.category_id, Decimal("0.00"))
+        remaining_amount = b.limit_amount - spent_amount
+        percent_used = None
+        if b.limit_amount and b.limit_amount != 0:
+            percent_used = (spent_amount / b.limit_amount) * Decimal("100")
+
+        budget_status.append(
+            {
+                "category": b.category.name,
+                "color": b.category.color,
+                "limit_amount": b.limit_amount,
+                "spent_amount": spent_amount,
+                "remaining_amount": remaining_amount,
+                "percent_used": percent_used.quantize(Decimal("0.1"))
+                if percent_used is not None
+                else None,
+            }
+        )
+
+    return render(
+        request,
+        "sheets/budget.html" if "sheets/budget.html" else "sheets/sheet.html",
+        {
+            "title": "Budget",
+            "month": month,
+            "year": year,
+            "budget_status": budget_status,
+        },
+    )

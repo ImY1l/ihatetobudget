@@ -14,6 +14,6 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='category',
             name='color',
-            field=colorfield.fields.ColorField(default='#FFFFFF', image_field=None, max_length=25, samples=None),
+            field=colorfield.fields.ColorField(default="#FFFFFF", max_length=25),
         ),
     ]

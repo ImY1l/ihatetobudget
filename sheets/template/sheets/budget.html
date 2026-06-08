@@ -1,0 +1,71 @@
+{% extends 'sheets/common/base.html' %}
+
+{% load ihatetobudget_extras %}
+
+{% block content %}
+  <style>
+    .budget-color-swatch {
+      display: inline-block;
+      width: 14px;
+      height: 14px;
+      border-radius: 2px;
+      margin-right: 6px;
+    }
+  </style>
+
+  <div class="container" style="padding-top: 30px">
+    <h1 class="mb-3">Budget for {{ month }}/{{ year }}</h1>
+
+    <table class="table table-sm table-striped">
+      <thead>
+        <tr>
+          <th>Category</th>
+          <th>Limit</th>
+          <th>Spent</th>
+          <th>Remaining</th>
+          <th>% used</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for row in budget_status %}
+          <tr>
+            <td>
+              <span
+                class="budget-color-swatch"
+                data-color="{{ row.color|default_if_none:'#000' }}"
+              ></span>
+              {{ row.category }}
+            </td>
+            <td>{{ row.limit_amount|currency }}</td>
+            <td>{{ row.spent_amount|currency }}</td>
+            <td>{{ row.remaining_amount|currency }}</td>
+            <td>
+              {% if row.percent_used is not None %}
+                {{ row.percent_used }}%
+              {% else %}
+                -
+              {% endif %}
+            </td>
+          </tr>
+        {% empty %}
+          <tr>
+            <td colspan="5">No budgets configured for this month.</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+  <script>
+    document
+      .querySelectorAll(".budget-color-swatch")
+      .forEach(function (el) {
+        var color = el.dataset.color;
+        if (color) {
+          el.style.backgroundColor = color;
+        }
+      });
+  </script>
+{% endblock %}
+
+

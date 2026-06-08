@@ -1,9 +1,12 @@
-from django.forms import ModelForm
+from django import forms
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.models import User
 
-from .models import Category, Expense
+from .models import BudgetLimit, Category, Expense
 
 
-class ExpenseForm(ModelForm):
+
+class ExpenseForm(forms.ModelForm):
     required_css_class = "form-group-required"
 
     class Meta:
@@ -11,9 +14,24 @@ class ExpenseForm(ModelForm):
         fields = "__all__"
 
 
-class CategoryForm(ModelForm):
+class CategoryForm(forms.ModelForm):
     required_css_class = "form-group-required"
 
     class Meta:
         model = Category
         fields = "__all__"
+
+
+class BudgetLimitForm(forms.ModelForm):
+    class Meta:
+        model = BudgetLimit
+        fields = ["category", "limit_amount", "month", "year"]
+
+
+class CustomUserCreationForm(UserCreationForm):
+    email = forms.EmailField(required=False)
+
+    class Meta:
+        model = User
+        fields = ("username", "email")
+

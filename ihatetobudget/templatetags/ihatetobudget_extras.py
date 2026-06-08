@@ -22,9 +22,30 @@ def attrsum(container, attr_name):
 
 @register.filter
 def currency(amount):
+    # Template can pass strings; normalize to Decimal/float for formatting.
+    if amount is None:
+        amount = 0
+
+    if isinstance(amount, str):
+        amount = amount.strip()
+        if amount == "":
+            amount = 0
+        else:
+            # Handle values coming from forms/QueryDicts.
+            amount = float(amount)
+
+    # Convert strings again for safety.
+    try:
+        if isinstance(amount, str):
+            amount = float(amount)
+        formatted = f"{amount:,.2f}"
+    except (TypeError, ValueError):
+        formatted = f"{float(amount):,.2f}"
+
+
     return (
         settings.CURRENCY_PREFIX
-        + f"{amount:,.2f}".translate(
+        + formatted.translate(
             str.maketrans(
                 ",.",
                 settings.CURRENCY_GROUP_SEPARATOR
@@ -33,6 +54,7 @@ def currency(amount):
         )
         + settings.CURRENCY_SUFFIX
     )
+
 
 
 @register.simple_tag

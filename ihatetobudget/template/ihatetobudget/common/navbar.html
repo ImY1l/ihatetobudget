@@ -29,8 +29,15 @@
           <li class="nav-item">
             <a class="nav-link" href="{% url 'sheets:history' %}">History</a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'sheets:budget_dashboard' %}">Budget</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'sheets:export_csv' %}">Export CSV</a>
+          </li>
         {% endif %}
       </ul>
+
       <ul class="navbar-nav">
         {% if user.is_authenticated %}
           <li class="nav-item dropdown d-none d-lg-block">
@@ -73,10 +80,17 @@
             <a class="nav-link" href="https://github.com/bminusl/ihatetobudget"><i class="fa fa-github fa-lg"></i></a>
           </li>
           <li class="nav-item">
+            <a class="nav-link" href="/sheets/register/">Register</a>
+          </li>
+
+
+
+          <li class="nav-item">
             <a class="nav-link" href="{% url 'login' %}">Sign in <i class="fa fa-sign-in fa-fw"></i></a>
           </li>
         {% endif %}
       </ul>
+
     </div>
   </div>
 </nav>
