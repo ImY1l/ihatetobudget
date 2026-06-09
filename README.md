@@ -28,6 +28,201 @@ __IHateToBudget is now archived. See [#26](https://github.com/bminusl/ihatetobud
   <em>Inspired by <a href="https://github.com/inoda/ontrack">OnTrack</a>.</em>
 </p>
 
+## Evolved Production-Ready README (Academic Artifact)
+
+> Note: The legacy documentation remains included for historical traceability. The section below documents the evolved engineering outcomes required for your report.
+
+# ihatetobudget: Open Source Personal Finance Platform
+
+<p align="center">
+  <a href="https://github.com/ImY1l/ihatetobudget">
+    <img src="https://raw.githubusercontent.com/bminusl/ihatetobudget/master/static/logo.png" alt="IHateToBudget logo" height="75">
+  </a>
+</p>
+
+<h3 align="center">ihatetobudget (Evolved v2.0.0)</h3>
+
+<p align="center">
+  <img src="https://img.shields.io/badge/Python-3.10+-3776AB.svg" alt="Python Version">
+  <img src="https://img.shields.io/badge/Django-4.2.11__LTS-092E20.svg" alt="Django LTS Version">
+  <img src="https://img.shields.io/badge/Coverage-91%25-2ea44f.svg" alt="Test Coverage Score">
+  <img src="https://img.shields.io/badge/ISO%2FIEC%2014764-Compliant-orange.svg" alt="ISO Standard Compliance">
+  <img src="https://img.shields.io/badge/License-MIT-blue.svg" alt="MIT License">
+</p>
+
+<p align="center">
+  A secure, multi-tenant web application designed to understand, visualize, and control your personal finances.
+  <br>
+  <strong>Engineered for production-grade containerized self-hosting.</strong>
+</p>
+
+---
+
+## 📖 Project Evolution & Academic Context
+
+The legacy baseline of `ihatetobudget` was archived in December 2022, introducing critical technical debt including an End-of-Life (EOL) framework, 92 known CVE vulnerabilities, and a high risk of operational failure.
+
+Under the strict guidelines of the **ISO/IEC 14764:2022** software maintenance standard, our engineering team executed a 12-week evolution cycle. By systematically applying corrective, preventive, perfective, and adaptive maintenance tasks, we successfully mitigated software decay (Lehman's Law of Increasing Complexity), transforming the system into a hardened, secure, multi-tenant platform.
+
+---
+
+## 📋 Table of Contents
+* [Architectural Evolution Matrix](#-architectural-evolution-matrix)
+* [Core Features](#-core-features)
+* [System Technology Stack](#-system-technology-stack)
+* [Installation & Configuration](#-installation--configuration)
+  * [Docker Orchestration Method](#docker-orchestration-method)
+  * [Local Pipenv Method](#local-pipenv-method)
+* [Verification & Quality Gate Audits](#-verification--quality-gate-audits)
+* [License](#-license)
+* [Contributing Guidelines](#-contributing-guidelines)
+* [Maintenance Team](#-maintenance-team)
+
+---
+
+## 📊 Architectural Evolution Matrix
+
+| Feature Dimension | Legacy Baseline (v1.5.7 Archive) | Evolved Capabilities (v2.0.0 Production) |
+| :--- | :--- | :--- |
+| **Multi-Tenancy** | Single-tenant layout; zero dynamic user onboarding. | Strict data isolation; self-service user registration with complex validation. |
+| **Financial Planning** | Reactive ledger tracking (historical entry logging only). | Proactive budget planning with category-level limits and spending alerts. |
+| **Security Controls** | Hardcoded production secrets; 92 active CVEs. | Zero hardcoded tokens (`django-environ`); 97% reduction in dependency CVEs (3 low-severity remaining). |
+| **Data Portability** | Bounded data silos; no backup/extraction pipeline. | Authenticated, streamed CSV record exporting. |
+| **UI/UX Ergonomics** | Flat Bootstrap 4 presentation template layout. | Modernized Bootstrap 5.3 responsive DOM with persistent Dark Mode support. |
+
+---
+
+## ✨ Core Features
+
+#### 1. Isolated Multi-Tenant Workspace Onboarding
+A robust self-service user account registration, session management, and verification engine. Binds financial transaction contexts safely to unique user instances, preventing cross-tenant data leaks.
+
+#### 2. Categorized Transaction Ledger & Document Capture
+Log daily expenses with structured metadata (date, category, description, and amount). Includes an adaptive image processing pipeline allowing users to attach digital receipt files, stored securely via persistent volume mounts.
+
+#### 3. Real-Time Budgetary Allocation Dashboard
+Enables users to establish proactive monthly spending limits per category. The system automatically computes and displays real-time utilization graphs, detailing *Spent Balance*, *Remaining Capital*, and *Percent Used*.
+
+#### 4. Security-Bound CSV Data Portability
+Provides an authenticated data extraction link that queries session-bound logs and streams records directly into a clean CSV file format for secondary external analytics.
+
+#### 5. Theme Accessibility Toggling
+An optimized frontend layout that integrates a persistent Dark Mode option using local browser storage parameters, drastically reducing visual strain.
+
+---
+
+## 🛠️ System Technology Stack
+
+* **Core Logic Engine:** Python 3.10+ / Django 4.2.11 Long-Term Support (LTS)
+* **Database Layer:** SQLite Engine accessed via Django Object-Relational Mapping (ORM)
+* **Presentation Layer:** Bootstrap 5.3, Vanilla JavaScript, Chart.js Core Analytics
+* **DevOps Environment:** Docker Desktop / Docker Compose Orchestration Subsystems
+* **QA & Security Gates:** pytest-django, coverage.py, bandit, safety, pre-commit
+
+---
+
+## 🚀 Installation & Configuration
+
+### Docker Orchestration Method (Recommended Production Setup)
+
+1. Clone the evolved production repository:
+   ```bash
+   git clone [https://github.com/ImY1l/ihatetobudget.git](https://github.com/ImY1l/ihatetobudget.git)
+   cd ihatetobudget
+
+   ```
+
+2. Establish your secure, decoupled local environment variables configuration file:
+   ```bash
+   cp .env.example .env
+
+   ```
+
+   *Open `.env` and verify that `DJANGO_DEBUG=False`, and populate a secure cryptographic string for `DJANGO_SECRET_KEY`.*
+3. Spin up the containerized architecture stack using Docker Compose:
+   ```bash
+   docker compose up -d --build
+
+   ```
+
+   *This initializes the application web runtime, mounts persistent storage volumes (`media_volume`) for receipt file retention, and configures the Caddy reverse proxy layer.*
+4. Apply database migrations to generate the evolved schema tables (including `BudgetLimit` constraints):
+   ```bash
+   docker compose exec web python manage.py migrate
+
+   ```
+
+5. Generate a root system administrative user to handle initial configurations:
+   ```bash
+   docker compose exec web python manage.py createsuperuser
+
+   ```
+
+6. Access your secure instance locally at `http://localhost:8000`.
+
+### Local Pipenv Method (Development & Testing Setup)
+
+1. Ensure Python 3.10+ and Pipenv are active on your workstation.
+2. Initialize virtual environments and fetch development dependencies:
+   ```bash
+   pipenv install --dev
+
+   ```
+
+3. Enter the isolated execution shell: `pipenv shell`
+4. Apply relational migrations: `python manage.py migrate`
+5. Run the local development server: `python manage.py runserver`
+
+---
+
+## 🔍 Verification & Quality Gate Audits
+
+To preserve absolute codebase health and prevent regressions, all code modifications must satisfy our dual validation gates before being integrated into production:
+
+### 1. Security Header & Deployment Integrity Check
+Validate framework hardening settings by executing:
+
+```bash
+python manage.py check --deploy
+
+```
+
+*Expected Output:* `System check identified no issues (0 silenced)`. This confirms that all deployment misconfigurations (such as unhandled HSTS parameters or unsecure cookies) are fully resolved.
+
+### 2. Automated Regression Testing Suite
+Run our comprehensive test net to ensure the application hits our **91% perfective coverage score**:
+
+```bash
+pytest --cov=sheets --cov-report=term-missing
+
+```
+
+---
+
+## 📄 License
+
+This evolved personal accounting platform is distributed under the **MIT License**. See the `LICENSE` file for full text parameters.
+
+---
+
+## 🤝 Contributing Guidelines
+
+Contributions must follow a strict, risk-mitigated workflow to maintain code quality. Please review our formal [Contributing Manual](https://www.google.com/search?q=CONTRIBUTING.md) to understand branch naming conventions (`feat/adaptive-`, `fix/corrective-`), mandatory pre-commit hooks integration (`bandit`, `safety`, `flake8`, `black`), and pull request verification expectations.
+
+---
+
+## 👥 Maintenance Team
+
+* **Mohammed Yousef Mohammed ABDULKAREM** (ID: 1221305727) — Preventive Refactoring & Budget Module
+* **Mohammed AAMENA Mohammed Abdulkarem** (ID: 1221305728) — Corrective Maintenance & Infrastructure Hardening
+* **FARAH HANIM BINTI MOHD ZAMRI** (ID: 1221305625) — Perfective Testing QA Gates, Authentication, & UI Theme Engine
+
+---
+
+*Developed for CSE6364 Software Evolution & Maintenance under the supervision of Dr. Dr. Zuriani Hayati Binti Abdullah at Multimedia University.*
+
+---
+
 ## Table of contents
 * [About](#About)
 * [Features](#Features)
