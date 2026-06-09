@@ -24,3 +24,12 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("accounts/", include("django.contrib.auth.urls")),
 ]
+
+# Budget dashboard routes are under the sheets/ prefix (see include("sheets.urls")).
+# For backwards-compatibility, mirror them at the root.
+from sheets.views import budget_dashboard
+urlpatterns += [
+    path("budget/", budget_dashboard, name="budget_dashboard"),
+    path("budget/<int:year>/<int:month>/", budget_dashboard, name="budget_dashboard_monthly"),
+]
+

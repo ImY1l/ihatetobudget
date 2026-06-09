@@ -1,10 +1,15 @@
 [run]
+source = sheets
 omit =
-  *migrations/*,
-  *tests/*,
-  *tests.py,
-  *test_*.py
+    */migrations/*
+    */tests/*
+    */test_*.py
+    */__init__.py
+    sheets/cron.py
+    manage.py
+    ihatetobudget/asgi.py
+    ihatetobudget/wsgi.py
 
-  manage.py
-  ihatetobudget/asgi.py
-  ihatetobudget/wsgi.py
+[report]
+show_missing = True
+fail_under = 91

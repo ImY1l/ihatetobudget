@@ -10,7 +10,11 @@ services:
       - static:/static
       - media_volume:/usr/src/app/media
     env_file: docker-compose.env
+    environment:
+      # Ensure HTTPS redirect is disabled because Caddy is currently HTTP-only (port 80)
+      DJANGO_SECURE_SSL_REDIRECT: "False"
   caddy:
+
     image: caddy:2.0.0
     restart: always
     ports:

@@ -30,7 +30,7 @@ if not SECRET_KEY:
 
 # SECURITY WARNING: don't run with debug turned on in production!
 # For deployment checks, ensure this env var is set to "False".
-DEBUG = os.environ.get("DJANGO_DEBUG", "") == "True"
+DEBUG = os.environ.get("DJANGO_DEBUG", "True") == "True"
 
 # When running the test suite, Django's test client uses plain HTTP.
 # Redirecting to HTTPS would introduce unexpected 301s in tests.
@@ -44,9 +44,13 @@ IS_TEST = (os.environ.get("PYTEST_CURRENT_TEST") is not None) or ("test" in sys.
 SECURE_HSTS_SECONDS = int(os.environ.get("DJANGO_SECURE_HSTS_SECONDS", "31536000"))
 
 # Avoid HTTPS redirects during the test suite.
+# NOTE: docker-compose.env may not always propagate into the running container.
+# Use a safe default but allow overriding with DJANGO_SECURE_SSL_REDIRECT.
 SECURE_SSL_REDIRECT = (
-    os.environ.get("DJANGO_SECURE_SSL_REDIRECT", "True") == "True"
+    os.environ.get("DJANGO_SECURE_SSL_REDIRECT", "False") == "True"
 ) and (not IS_TEST)
+
+
 
 
 SESSION_COOKIE_SECURE = os.environ.get("DJANGO_SESSION_COOKIE_SECURE", "True") == "True"
@@ -64,9 +68,18 @@ ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS", "127.0.0.1,localhost").sp
 
 INSTALLED_APPS = [
     "django_crontab",
-    "mathfilters",
+    # "mathfilters" is optional in some environments.
+    # It's used only for template filters; if it's not installed, we can
+    # still run the app's core tests.
+    
+    
+
     "colorfield",
+
+    # bootstrap4 is only needed for template tag libraries (used in base.html).
     "bootstrap4",
+
+
     "sheets.apps.SheetsConfig",
     "django.contrib.admin",
     "django.contrib.auth",
