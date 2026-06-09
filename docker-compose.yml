@@ -1,0 +1,30 @@
+version: "3"
+
+services:
+  ihatetobudget:
+    build: .
+    command: pipenv run daphne -b 0.0.0.0 ihatetobudget.asgi:application
+    restart: always
+    volumes:
+      - .:/usr/src/app
+      - static:/static
+      - media_volume:/usr/src/app/media
+    env_file: docker-compose.env
+  caddy:
+    image: caddy:2.0.0
+    restart: always
+    ports:
+      - '80:80'
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile
+      - caddy_data:/data
+      - static:/var/www/static
+    depends_on:
+      - ihatetobudget
+
+
+volumes:
+  caddy_data:
+  static:
+  media_volume:
+
