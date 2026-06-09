@@ -20,3 +20,6 @@ class IndexTestCase(TestCase):
             client.get(reverse("index"), follow=True).redirect_chain,
             [(reverse("sheets:index"), 302)],
         )
+
+
+

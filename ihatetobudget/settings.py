@@ -11,7 +11,9 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
 import os
+import sys
 from pathlib import Path
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve(strict=True).parent.parent
@@ -27,7 +29,32 @@ if not SECRET_KEY:
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.environ.get("DJANGO_DEBUG", "") != "False"
+# For deployment checks, ensure this env var is set to "False".
+DEBUG = os.environ.get("DJANGO_DEBUG", "") == "True"
+
+# When running the test suite, Django's test client uses plain HTTP.
+# Redirecting to HTTPS would introduce unexpected 301s in tests.
+# True when Django's test runner is executing.
+IS_TEST = (os.environ.get("PYTEST_CURRENT_TEST") is not None) or ("test" in sys.argv[0])
+
+
+
+# --- Deployment hardening (Django security.W004/W008/W012/W016) ---
+# These should be enabled when the site is served behind HTTPS (e.g. via Caddy).
+SECURE_HSTS_SECONDS = int(os.environ.get("DJANGO_SECURE_HSTS_SECONDS", "31536000"))
+
+# Avoid HTTPS redirects during the test suite.
+SECURE_SSL_REDIRECT = (
+    os.environ.get("DJANGO_SECURE_SSL_REDIRECT", "True") == "True"
+) and (not IS_TEST)
+
+
+SESSION_COOKIE_SECURE = os.environ.get("DJANGO_SESSION_COOKIE_SECURE", "True") == "True"
+
+CSRF_COOKIE_SECURE = os.environ.get("DJANGO_CSRF_COOKIE_SECURE", "True") == "True"
+SECURE_HSTS_INCLUDE_SUBDOMAINS = os.environ.get("DJANGO_SECURE_HSTS_INCLUDE_SUBDOMAINS", "True") == "True"
+SECURE_HSTS_PRELOAD = os.environ.get("DJANGO_SECURE_HSTS_PRELOAD", "True") == "True"
+
 
 ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS", "127.0.0.1,localhost").split(",")
 
