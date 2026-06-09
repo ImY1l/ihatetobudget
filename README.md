@@ -34,12 +34,6 @@ __IHateToBudget is now archived. See [#26](https://github.com/bminusl/ihatetobud
 
 # ihatetobudget: Open Source Personal Finance Platform
 
-<p align="center">
-  <a href="https://github.com/ImY1l/ihatetobudget">
-    <img src="https://raw.githubusercontent.com/bminusl/ihatetobudget/master/static/logo.png" alt="IHateToBudget logo" height="75">
-  </a>
-</p>
-
 <h3 align="center">ihatetobudget (Evolved v2.0.0)</h3>
 
 <p align="center">
