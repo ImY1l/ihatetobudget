@@ -1,7 +1,16 @@
-## Contributing
+# Contributing
 
-- The repository is open for all kind of contributions (feature adding, bug fixing)
-- You can also write by opening an Issue and also solve a current issue if possible.
-- Fork this project to your Github account.
-- After forking, clone the repository to local system and make the necessary changes.
-- Kindly send Pull Requests with explanation as to what changes you have done.
+We welcome all contributions, including new features, bug fixes, documentation, and testing.
+
+## How to Contribute?
+1. Check the Issues tab for open tasks or create a new issue to propose your idea.
+2. Fork this repository and clone it to your local system.
+3. Set up the project by following the instructions in the README or the installation guide.
+4. Make your changes, ensuring they follow the coding standards.
+5. Test your changes thoroughly.
+6. Submit a Pull Request with:
+   - A clear explanation of what you changed
+   - Links to related issues (if any)
+   - Screenshots or test results (if applicable)
+
+Thank you for helping improve this project!
