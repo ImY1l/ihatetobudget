@@ -12,7 +12,9 @@
         <form action="{% url 'login' %}" method="post" class="form">
           {% csrf_token %}
           {% bootstrap_form form %}
-          {% bootstrap_button '<i class="fa fa-sign-in"></i> Sign In' button_type="submit" button_class="btn-block btn-primary" %}
+          <button type="submit" class="btn btn-primary btn-block">
+              <i class="fa fa-sign-in"></i> Sign In
+          </button>
         </form>
       </div>
     </div>
