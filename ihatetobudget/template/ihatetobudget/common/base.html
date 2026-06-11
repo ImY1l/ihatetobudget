@@ -16,6 +16,16 @@
     <link rel="stylesheet" href="{% static 'bootstrap.min.css' %}">
     <link rel="stylesheet" href="{% static 'styles.css' %}">
 
+    {# Apply saved theme before page renders to avoid flash of wrong theme #}
+    <script>
+      (function() {
+        var theme = localStorage.getItem('ihtb-theme');
+        if (theme === 'dark') {
+          document.documentElement.setAttribute('data-theme', 'dark');
+        }
+      })();
+    </script>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js" integrity="sha512-s+xg36jbIujB2S2VKfpGmlC3T5V2TF3lY48DX7u2r9XzGzgPsa6wTpOQA7J9iffvdeBN0q9tKzRxVxw1JviZPg==" crossorigin="anonymous"></script>
   </head>
   <body>
@@ -32,8 +42,10 @@
       </footer>
     </div>
 
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     {% bootstrap_javascript jquery='full' %}
     <script type="text/javascript">
+/*      
 $(function () {
   $('[data-toggle="tooltip"]').tooltip()
 })
@@ -60,6 +72,44 @@ $(function () {
     }
   })
 })
+*/
+
+// Dark mode toggle logic
+(function () {
+  var STORAGE_KEY = 'ihtb-theme';
+
+  function getTheme() {
+    return localStorage.getItem(STORAGE_KEY) || 'light';
+  }
+
+  function applyTheme(theme) {
+    if (theme === 'dark') {
+      document.documentElement.setAttribute('data-theme', 'dark');
+    } else {
+      document.documentElement.removeAttribute('data-theme');
+    }
+    // Update all toggle button icons
+    document.querySelectorAll('.dark-mode-toggle').forEach(function(btn) {
+      btn.setAttribute('title', theme === 'dark' ? 'Switch to Light Mode' : 'Switch to Dark Mode');
+      btn.querySelector('i').className = theme === 'dark' ? 'fa fa-sun-o' : 'fa fa-moon-o';
+    });
+  }
+
+  function toggleTheme() {
+    var current = getTheme();
+    var next = current === 'dark' ? 'light' : 'dark';
+    localStorage.setItem(STORAGE_KEY, next);
+    applyTheme(next);
+  }
+
+  // Wire up buttons after DOM ready
+  document.querySelectorAll('.dark-mode-toggle').forEach(function(btn) {
+    btn.addEventListener('click', toggleTheme);
+  });
+
+  // Set correct icon on load
+  applyTheme(getTheme());
+})();
     </script>
   </body>
 </html>

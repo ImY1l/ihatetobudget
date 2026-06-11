@@ -142,3 +142,172 @@ body, p {
   animation-name: fadein;
   animation-duration: .5s;
 }
+
+
+/*
+ * ===================================================
+ * Dark Mode (Enhancement #4 - Farah Hanim)
+ * Toggled by adding data-theme="dark" to <html>
+ * Preference is persisted in localStorage
+ * ===================================================
+ */
+
+[data-theme="dark"] {
+  --body-bg: #1a1a2e;
+  --body-color: #e0e0e0;
+  --card-bg: #16213e;
+  --card-border: #0f3460;
+  --navbar-bg: #0f3460;
+  --navbar-link-color: rgba(224, 224, 224, 0.85) !important;
+  --navbar-link-hover: rgba(224, 224, 224, 0.55) !important;
+  --sidebar-bg: #16213e;
+  --input-bg: #0f3460;
+  --input-color: #e0e0e0;
+  --input-border: #1a4a8a;
+  --muted-color: #9fa8b0;
+  --footer-color: #6c757d;
+  --dropdown-bg: #16213e;
+  --dropdown-color: #e0e0e0;
+  --dropdown-hover-bg: #0f3460;
+}
+
+[data-theme="dark"] body {
+  background-color: var(--body-bg);
+  color: var(--body-color);
+}
+
+[data-theme="dark"] .navbar {
+  background-color: var(--navbar-bg) !important;
+  border-bottom: 1px solid #0a2a50;
+}
+
+[data-theme="dark"] .navbar .nav-link {
+  color: var(--navbar-link-color) !important;
+}
+
+[data-theme="dark"] .navbar .nav-link:hover {
+  color: var(--navbar-link-hover) !important;
+}
+
+[data-theme="dark"] .card {
+  background-color: var(--card-bg);
+  border-color: var(--card-border);
+  color: var(--body-color);
+}
+
+[data-theme="dark"] .card-header {
+  background-color: rgba(255,255,255,0.05);
+  border-bottom-color: var(--card-border);
+}
+
+[data-theme="dark"] .text-muted,
+[data-theme="dark"] footer a {
+  color: var(--muted-color) !important;
+}
+
+[data-theme="dark"] .form-control {
+  background-color: var(--input-bg);
+  border-color: var(--input-border);
+  color: var(--input-color);
+}
+
+[data-theme="dark"] .form-control:focus {
+  background-color: var(--input-bg);
+  color: var(--input-color);
+  border-color: #2d7dd2;
+  box-shadow: 0 0 0 0.2rem rgba(45, 125, 210, 0.25);
+}
+
+[data-theme="dark"] .table {
+  color: var(--body-color);
+}
+
+[data-theme="dark"] .table thead th {
+  border-bottom-color: var(--card-border);
+}
+
+[data-theme="dark"] .table td,
+[data-theme="dark"] .table th {
+  border-top-color: rgba(255,255,255,0.07);
+}
+
+[data-theme="dark"] .table-hover tbody tr:hover {
+  background-color: rgba(255,255,255,0.04);
+  color: var(--body-color);
+}
+
+[data-theme="dark"] .dropdown-menu {
+  background-color: var(--dropdown-bg);
+  border-color: var(--card-border);
+}
+
+[data-theme="dark"] .dropdown-item {
+  color: var(--dropdown-color);
+}
+
+[data-theme="dark"] .dropdown-item:hover,
+[data-theme="dark"] .dropdown-item:focus {
+  background-color: var(--dropdown-hover-bg);
+  color: var(--body-color);
+}
+
+[data-theme="dark"] .dropdown-header,
+[data-theme="dark"] .dropdown-divider {
+  border-color: var(--card-border);
+  color: var(--muted-color);
+}
+
+[data-theme="dark"] .nav-link.active {
+  color: #5ba3f5 !important;
+}
+
+[data-theme="dark"] .text-warning {
+  color: #f0ad4e !important;
+}
+
+[data-theme="dark"] .alert-info {
+  background-color: #0f3460;
+  border-color: #1a4a8a;
+  color: #90c4f7;
+}
+
+[data-theme="dark"] .alert-success {
+  background-color: #1a3a2a;
+  border-color: #1e5c38;
+  color: #6fcf97;
+}
+
+[data-theme="dark"] .alert-danger {
+  background-color: #3a1a1a;
+  border-color: #7a2e2e;
+  color: #f28b82;
+}
+
+[data-theme="dark"] .badge-info {
+  background-color: #1a6fa3;
+}
+
+[data-theme="dark"] .progress {
+  background-color: #0f3460;
+}
+
+[data-theme="dark"] hr {
+  border-color: rgba(255,255,255,0.1);
+}
+
+/* Dark mode toggle button */
+.dark-mode-toggle {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.25rem 0.5rem;
+  font-size: 1.1rem;
+  line-height: 1;
+  color: inherit;
+  opacity: 0.8;
+  transition: opacity 0.2s;
+}
+
+.dark-mode-toggle:hover {
+  opacity: 1;
+}
