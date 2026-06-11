@@ -6,6 +6,9 @@ verify_ssl = true
 [dev-packages]
 pre-commit = "*"
 coverage = "*"
+pytest = "*"
+pytest-django = "*"
+pytest-cov = "*"
 
 [packages]
 # Preventive maintenance: Django LTS upgrade
