@@ -121,7 +121,7 @@ An optimized frontend layout that integrates a persistent Dark Mode option using
 
 1. Clone the evolved production repository:
    ```bash
-   git clone [https://github.com/ImY1l/ihatetobudget.git](https://github.com/ImY1l/ihatetobudget.git)
+   git clone https://github.com/ImY1l/ihatetobudget.git
    cd ihatetobudget
 
    ```
