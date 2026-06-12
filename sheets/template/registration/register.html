@@ -7,29 +7,34 @@
     <title>Register</title>
   </head>
   <body>
-    <div class="container" style="max-width: 520px; padding-top: 40px">
-      <h1 class="mb-4">Create account</h1>
+    <div class="w-100 mx-auto" style="max-width: 22rem; padding-top: 40px;">
+      <h1 class="mb-4 text-center">Create account</h1>
 
-      <form method="post">
-        {% csrf_token %}
-        {{ form.non_field_errors }}
+      <div class="card">
+        <div class="card-body">
+          <form method="post" class="form">
+            {% csrf_token %}
+            {{ form.non_field_errors }}
 
-        {% for field in form %}
-        <div class="mb-3">
-          {{ field.label_tag }}
-          {{ field }}
-          {% if field.help_text %}
-          <div class="form-text">{{ field.help_text }}</div>
-          {% endif %}
-          {% for error in field.errors %}
-          <div class="text-danger">{{ error }}</div>
-          {% endfor %}
+            {% for field in form %}
+            <div class="mb-3">
+              {{ field.label_tag }}
+              {{ field }}
+              {% if field.help_text %}
+              <div class="form-text">{{ field.help_text }}</div>
+              {% endif %}
+              {% for error in field.errors %}
+              <div class="text-danger">{{ error }}</div>
+              {% endfor %}
+            </div>
+            {% endfor %}
+
+            <button type="submit" class="btn btn-primary btn-block">Register</button>
+          </form>
         </div>
-        {% endfor %}
-
-        <button type="submit" class="btn btn-primary">Register</button>
-      </form>
+      </div>
     </div>
   </body>
 </html>
+
 
