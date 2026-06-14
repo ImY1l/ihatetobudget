@@ -4,8 +4,6 @@
 
 ## Template 1: Bug Report
 
-**File:** `.github/ISSUE_TEMPLATE/bug_report.md`
-
 ```markdown
 ---
 name: Bug Report
@@ -69,8 +67,6 @@ assignees: ''
 
 ## Template 2: Feature Request / Enhancement
 
-**File:** `.github/ISSUE_TEMPLATE/feature_request.md`
-
 ```markdown
 ---
 name: Feature Request / Enhancement
@@ -131,8 +127,6 @@ assignees: ''
 
 ## Template 3: Test Failure / Coverage Gap
 
-**File:** `.github/ISSUE_TEMPLATE/test_failure.md`
-
 ```markdown
 ---
 name: Test Failure / Coverage Gap
@@ -182,8 +176,6 @@ assignees: ''
 
 ## Template 4: Documentation Issue
 
-**File:** `.github/ISSUE_TEMPLATE/documentation.md`
-
 ```markdown
 ---
 name: Documentation Issue
@@ -220,8 +212,6 @@ assignees: ''
 ---
 
 ## Template 5: Security Vulnerability
-
-**File:** `.github/ISSUE_TEMPLATE/security.md`
 
 ```markdown
 ---
