@@ -43,4 +43,3 @@ assignees: ''
 
 - [ ] I have checked the latest version to confirm this is not already fixed
 - [ ] I understand that critical issues should be reported privately
----

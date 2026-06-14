@@ -1,11 +1,11 @@
----
 
+---
 name: Documentation Issue
 about: Report missing, incorrect, or outdated documentation
 title: "[DOCS] "
 labels: documentation
 assignees: ''
--------------
+---
 
 ## Document Affected
 

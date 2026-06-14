@@ -1,6 +1,3 @@
-## Template: Feature Request / Enhancement
-
-**File:** `.github/ISSUE_TEMPLATE/feature_request.md`
 
 ---
 name: Feature Request / Enhancement
@@ -55,5 +52,3 @@ assignees: ''
 ## Additional Context
 
 <!-- Screenshots, mockups, related issues, or links to prior discussion. -->
-
----

@@ -1,11 +1,11 @@
----
 
+---
 name: Bug Report
 about: Report a defect or unexpected behaviour
 title: "[BUG] "
 labels: bug, needs-triage
 assignees: ''
--------------
+---
 
 ## Summary
 
