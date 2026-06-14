@@ -1,8 +1,5 @@
-# Pull Request Template — ihatetobudget
 
 ---
-
-```markdown
 ## Summary
 
 <!-- One or two sentences describing what this PR does and why. -->
@@ -132,4 +129,3 @@ Closes #<!-- issue number -->
 ## Reviewer Notes
 
 <!-- Anything specific you want reviewers to focus on or be aware of. -->
-```
