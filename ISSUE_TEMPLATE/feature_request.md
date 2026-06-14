@@ -1,11 +1,7 @@
-# Issue Templates — ihatetobudget
----
-
 ## Template: Feature Request / Enhancement
 
 **File:** `.github/ISSUE_TEMPLATE/feature_request.md`
 
-```markdown
 ---
 name: Feature Request / Enhancement
 about: Suggest a new feature or improvement
@@ -59,5 +55,5 @@ assignees: ''
 ## Additional Context
 
 <!-- Screenshots, mockups, related issues, or links to prior discussion. -->
-```
+
 ---

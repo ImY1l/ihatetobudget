@@ -1,11 +1,6 @@
-# Issue Templates — ihatetobudget
----
-
 ## Template: Documentation Issue
-
 **File:** `.github/ISSUE_TEMPLATE/documentation.md`
 
-```markdown
 ---
 name: Documentation Issue
 about: Report missing, incorrect, or outdated documentation
@@ -36,6 +31,5 @@ assignees: ''
 ## Why This Matters
 
 <!-- Who is impacted and how? e.g. "New developers cannot set up the project because the env variable is undocumented." -->
-```
 
 ---

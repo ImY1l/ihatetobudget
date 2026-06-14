@@ -1,11 +1,7 @@
-# Issue Templates — ihatetobudget
----
-
 ## Template: Security Vulnerability
 
 **File:** `.github/ISSUE_TEMPLATE/security.md`
 
-```markdown
 ---
 name: Security Vulnerability
 about: Report a security issue (consider reporting privately via email for critical issues)
@@ -50,5 +46,4 @@ assignees: ''
 
 - [ ] I have checked the latest version to confirm this is not already fixed
 - [ ] I understand that critical issues should be reported privately
-```
 ---

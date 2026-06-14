@@ -1,11 +1,7 @@
-# Issue Templates — ihatetobudget
----
-
 ## Template: Test Failure / Coverage Gap
 
 **File:** `.github/ISSUE_TEMPLATE/test_failure.md`
 
-```markdown
 ---
 name: Test Failure / Coverage Gap
 about: Report a failing test, flaky test, or area with insufficient coverage
@@ -48,5 +44,4 @@ assignees: ''
 - [ ] I have confirmed this fails on a clean checkout
 - [ ] I have checked for import errors and missing fixtures
 - [ ] I have attached the full traceback above
-```
 ---

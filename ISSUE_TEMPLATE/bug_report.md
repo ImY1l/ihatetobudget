@@ -5,7 +5,6 @@
 
 **File:** `.github/ISSUE_TEMPLATE/bug_report.md`
 
-```markdown
 ---
 name: Bug Report
 about: Report a defect or unexpected behaviour
@@ -62,6 +61,5 @@ assignees: ''
 - [ ] I searched existing issues and this is not a duplicate
 - [ ] I can reproduce this reliably
 - [ ] I am running the latest version of the branch
-```
 
 ---
