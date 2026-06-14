@@ -3,8 +3,7 @@
 ## Summary
 
 <!-- One or two sentences describing what this PR does and why. -->
-
-Closes #<!-- issue number -->
+<!-- issue number -->
 
 ---
 
