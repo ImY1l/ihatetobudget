@@ -1,6 +1,3 @@
-## Template: Security Vulnerability
-
-**File:** `.github/ISSUE_TEMPLATE/security.md`
 
 ---
 name: Security Vulnerability

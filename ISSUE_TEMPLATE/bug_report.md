@@ -1,21 +1,15 @@
-# Issue Templates — ihatetobudget
 ---
 
-## Template: Bug Report
-
-**File:** `.github/ISSUE_TEMPLATE/bug_report.md`
-
----
 name: Bug Report
 about: Report a defect or unexpected behaviour
-title: "[BUG] <short description>"
+title: "[BUG] "
 labels: bug, needs-triage
 assignees: ''
----
+-------------
 
 ## Summary
 
-<!-- A clear and concise description of the bug. -->
+Describe the bug clearly and concisely.
 
 ## Steps to Reproduce
 
@@ -26,40 +20,38 @@ assignees: ''
 
 ## Expected Behaviour
 
-<!-- What should have happened? -->
+What should have happened?
 
 ## Actual Behaviour
 
-<!-- What actually happened? Include error messages, stack traces, or screenshots. -->
+What actually happened?
 
 ## Environment
 
-| Item | Detail |
-|---|---|
-| OS | e.g. Windows 11 / Ubuntu 22.04 |
-| Browser (if UI) | e.g. Chrome 124, Firefox 126 |
-| Python version | e.g. 3.11.4 |
-| Django version | e.g. 4.2.11 |
-| Deployment | Local / Docker / Production |
+| Item           | Detail                      |
+| -------------- | --------------------------- |
+| OS             |                             |
+| Browser        |                             |
+| Python Version |                             |
+| Django Version |                             |
+| Deployment     | Local / Docker / Production |
 
 ## Reproduction Rate
 
-- [ ] Always
-- [ ] Intermittent (~___% of the time)
-- [ ] Only happened once
+* [ ] Always
+* [ ] Intermittent
+* [ ] Only happened once
 
 ## Related Files / Views
 
-<!-- Which view, model, or template is involved? e.g. `sheets/views.py export_csv_view` -->
+## Screenshots
 
-## Suggested Fix (optional)
+Attach screenshots if applicable.
 
-<!-- If you have a hypothesis or patch, describe it here. -->
+## Suggested Fix
 
 ## Checklist
 
-- [ ] I searched existing issues and this is not a duplicate
-- [ ] I can reproduce this reliably
-- [ ] I am running the latest version of the branch
-
----
+* [ ] I searched existing issues
+* [ ] I can reproduce this issue
+* [ ] I am using the latest version

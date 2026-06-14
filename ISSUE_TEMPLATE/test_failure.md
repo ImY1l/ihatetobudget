@@ -1,6 +1,3 @@
-## Template: Test Failure / Coverage Gap
-
-**File:** `.github/ISSUE_TEMPLATE/test_failure.md`
 
 ---
 name: Test Failure / Coverage Gap
