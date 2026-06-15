@@ -345,6 +345,23 @@ def receipts_month_download_view(request, year: int, month: int):
 
 
 @login_required
+def receipt_download_view(request, pk: int):
+    from django.http import FileResponse, Http404
+
+    expense = Expense.objects.filter(pk=pk, user=request.user).first()
+    if not expense or not expense.receipt:
+        raise Http404("Receipt not available")
+
+    receipt_field = expense.receipt
+    filename = receipt_field.name.rsplit("/", 1)[-1] if receipt_field.name else "receipt"
+    return FileResponse(
+        receipt_field.open("rb"),
+        as_attachment=True,
+        filename=filename,
+    )
+
+
+@login_required
 def budget_dashboard(request, year=None, month=None):
     today = datetime.date.today()
     year = year or today.year

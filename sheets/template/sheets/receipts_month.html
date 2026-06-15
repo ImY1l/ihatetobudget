@@ -24,7 +24,7 @@
             </div>
             <div>
               {% if e.receipt %}
-                <a class="btn btn-sm btn-light" href="{{ e.receipt.url }}" download>Download file</a>
+                <a class="btn btn-sm btn-light" href="{% url 'sheets:receipt_download' e.pk %}" download>Download file</a>
               {% endif %}
             </div>
           </div>

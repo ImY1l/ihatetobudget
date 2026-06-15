@@ -33,6 +33,11 @@ urlpatterns = [
         views.receipts_month_download_view,
         name="receipts_month_download",
     ),
+    path(
+        "receipts/download/<int:pk>/",
+        views.receipt_download_view,
+        name="receipt_download",
+    ),
     path("expense/new/", views.ExpenseCreateView.as_view(), name="expense-new"),
     path(
         "expense/<int:pk>/",
