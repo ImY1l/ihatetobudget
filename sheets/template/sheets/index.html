@@ -148,10 +148,7 @@ canvas.onclick = function(evt) {
   if (activeElement.length) {
     var month = activeElement[0]._index + 1;
 
-    // XXX: hardcoding the url format is bad
-    var url = '/sheets/' + {{ year }} + '/' + month + '/';
-
-    window.location.href = url;
+    window.location.href = '/sheets/receipts/month/' + canvas.id.replace('canvas', '') + '/' + month + '/';
   }
 };
         </script>

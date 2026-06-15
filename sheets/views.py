@@ -137,6 +137,12 @@ class SheetView(LoginRequiredMixin, MonthArchiveView):
     date_field = "date"
     allow_future = True
 
+    def get_queryset(self):
+        # Ensure the month page shows only the logged-in user's uploaded expenses
+        # while keeping MonthArchiveView's month/year filtering behavior.
+        qs = super().get_queryset()
+        return qs.filter(user=self.request.user)
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         today = datetime.datetime.today()
@@ -158,6 +164,11 @@ class ExpenseCreateView(
     template_name = "ihatetobudget/generic/new-edit-form.html"
     form_class = ExpenseForm
     extra_context = {"title": "New Expense"}
+
+    # After adding an expense, redirect back to the overview page.
+    success_url = reverse_lazy("sheets:index")
+
+
 
     # InitialDataAsGETOptionsMixin
     fields_with_initial_data_as_get_option = {
@@ -271,6 +282,67 @@ class CategoryDeleteView(
 
     # SuccessMessageMixin
     success_message = "Category deleted!"
+
+
+@login_required
+def receipts_month_view(request, year: int, month: int):
+    if not request.user.is_authenticated:
+        # login_required decorator covers this in routing, but keep it safe
+        return render(request, "404.html", status=404)
+
+    qs = Expense.objects.filter(user=request.user, date__year=year, date__month=month)
+    receipts = [e for e in qs if e.receipt]
+    receipts_count = len(receipts)
+
+    # If receipts exist, show them. If none, still show empty state.
+    return render(
+        request,
+        "sheets/receipts_month.html",
+        {
+            "title": "Receipts",
+            "year": year,
+            "month": month,
+            "receipts": receipts,
+            "receipts_count": receipts_count,
+        },
+    )
+
+
+def receipts_month_download_view(request, year: int, month: int):
+    from django.http import FileResponse, Http404, HttpResponse
+
+    # Only logged-in users can reach this route (via urls.py usage with views here).
+    qs = Expense.objects.filter(user=request.user, date__year=year, date__month=month)
+    receipts = [e.receipt for e in qs if e.receipt]
+
+    if not receipts:
+        raise Http404("No receipts found for this month")
+
+    if len(receipts) == 1:
+        receipt_field = receipts[0]
+        # FileResponse can stream the underlying file
+        return FileResponse(
+            receipt_field.open("rb"),
+            as_attachment=True,
+            filename=receipt_field.name.split("/")[-1],
+        )
+
+
+    # Multiple: zip them.
+    buffer = io.BytesIO()
+    with zipfile.ZipFile(buffer, "w", compression=zipfile.ZIP_DEFLATED) as zf:
+        for receipt_field in receipts:
+            f = receipt_field.open("rb")
+            try:
+                zf.writestr(receipt_field.name.split("/")[-1], f.read())
+            finally:
+                f.close()
+
+    buffer.seek(0)
+    filename = f"receipts_{year}_{month:02d}.zip"
+    resp = HttpResponse(buffer.getvalue(), content_type="application/zip")
+    resp["Content-Disposition"] = f"attachment; filename={filename}"
+    return resp
 
 
 @login_required

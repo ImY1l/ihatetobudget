@@ -1,0 +1,36 @@
+{% extends 'sheets/common/base.html' %}
+
+{% load ihatetobudget_extras %}
+
+{% block title %}Receipts - {{ month }}/{{ year }}{% endblock %}
+
+{% block content %}
+  <div class="container" style="padding-top: 20px">
+    <h2 class="mb-3">Receipts for {{ month }}/{{ year }}</h2>
+
+    {% if receipts_count == 0 %}
+      <p class="text-warning">No receipts uploaded for this month.</p>
+    {% else %}
+      <div class="mb-3">
+        <a class="btn btn-primary" href="{% url 'sheets:receipts_month_download' year month %}">Download all</a>
+      </div>
+
+      <div class="list-group">
+        {% for e in receipts %}
+          <div class="list-group-item d-flex align-items-center justify-content-between">
+            <div class="mr-3">
+              <strong>{{ e.date|date:'Y-m-d' }}</strong>
+              <div class="text-muted">{{ e.category|default_if_none:'' }}</div>
+            </div>
+            <div>
+              {% if e.receipt %}
+                <a class="btn btn-sm btn-light" href="{{ e.receipt.url }}" download>Download file</a>
+              {% endif %}
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    {% endif %}
+  </div>
+{% endblock %}
+

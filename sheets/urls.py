@@ -21,6 +21,18 @@ urlpatterns = [
         views.SheetView.as_view(month_format="%m"),
         name="sheet",
     ),
+
+    # Receipts (uploaded files) viewer/download
+    path(
+        "receipts/month/<int:year>/<int:month>/",
+        views.receipts_month_view,
+        name="receipts_month_view",
+    ),
+    path(
+        "receipts/month/<int:year>/<int:month>/download/",
+        views.receipts_month_download_view,
+        name="receipts_month_download",
+    ),
     path("expense/new/", views.ExpenseCreateView.as_view(), name="expense-new"),
     path(
         "expense/<int:pk>/",
