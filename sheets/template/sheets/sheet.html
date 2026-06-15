@@ -22,7 +22,7 @@
 
   <div class="d-flex justify-content-between align-items-center">
     {% if previous_month %}
-      {% url 'sheets:sheet' previous_month.year previous_month.month as url %}
+      {% url 'sheets:receipts_month_view' previous_month.year previous_month.month as url %}
       <a href="{{ url }}"><i class="fa fa-hand-o-left text-dark" data-toggle="tooltip" title="{{ previous_month|date:"F Y" }}"></i></a>
     {% else %}
       <span class="text-muted"><i class="fa fa-hand-o-left" data-toggle="tooltip" title="No previous month"></i></span>
@@ -31,7 +31,7 @@
     <p class="h3 text-center fx-fadein mb-0">{{ total_amount|currency }}</p>
 
     {% if next_month %}
-      {% url 'sheets:sheet' next_month.year next_month.month as url %}
+      {% url 'sheets:receipts_month_view' next_month.year next_month.month as url %}
       <a href="{{ url }}"><i class="fa fa-hand-o-right text-dark" data-toggle="tooltip" title="{{ next_month|date:"F Y" }}"></i></a>
     {% else %}
       <span class="text-muted"><i class="fa fa-hand-o-right" data-toggle="tooltip" title="No next month"></i></span>
