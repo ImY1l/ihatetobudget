@@ -3,7 +3,7 @@ version: "3"
 services:
   ihatetobudget:
     build: .
-    command: pipenv run daphne -b 0.0.0.0 ihatetobudget.asgi:application
+    command: sh -c "pipenv run python manage.py collectstatic --noinput && pipenv run daphne -b 0.0.0.0 ihatetobudget.asgi:application"
     restart: always
     volumes:
       - .:/usr/src/app

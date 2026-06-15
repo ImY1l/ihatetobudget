@@ -311,3 +311,33 @@ body, p {
 .dark-mode-toggle:hover {
   opacity: 1;
 }
+
+/* Homepage jumbotron dark mode */
+[data-theme="dark"] .jumbotron {
+    background-color: #172445 !important;
+    color: #f8f9fa !important;
+    border: 1px solid #1f4f8a;
+}
+
+[data-theme="dark"] .jumbotron .lead {
+    color: #d0d8e8 !important;
+}
+
+[data-theme="dark"] .jumbotron a {
+    color: #7db3ff;
+}
+
+/* Homepage hero section */
+[data-theme="dark"] .jumbotron {
+    background: #172445 !important;
+    color: #f8f9fa !important;
+    border: 1px solid #1f4f8a !important;
+}
+
+[data-theme="dark"] .jumbotron p,
+[data-theme="dark"] .jumbotron .lead,
+[data-theme="dark"] .jumbotron h1,
+[data-theme="dark"] .jumbotron h2,
+[data-theme="dark"] .jumbotron h3 {
+    color: #f8f9fa !important;
+}
