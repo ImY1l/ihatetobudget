@@ -1,8 +1,8 @@
 <div class="dropdown v-child">
-  <button class="btn btn-secondary btn-sm dropdown-toggle mx-2" type="button" id="dropdownMenuButton{{ expense.pk }}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+  <button class="btn btn-secondary btn-sm dropdown-toggle mx-2" type="button" id="dropdownMenuButton{{ expense.pk }}" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
     <i class="fa fa-cog"></i>
   </button>
-  <div class="dropdown-menu dropdown-menu-right py-1" aria-labelledby="dropdownMenuButton{{ expense.pk }}">
+  <div class="dropdown-menu dropdown-menu-end py-1" aria-labelledby="dropdownMenuButton{{ expense.pk }}">
     <a class="dropdown-item" href="{% url 'sheets:expense-edit' pk=expense.pk %}"><i class="fa fa-pencil fa-fw"></i> Edit</a>
     <a class="dropdown-item" href="{% url 'sheets:expense-new' %}?category={{ expense.category|urlencode }}&date={{ expense.date|urlencode }}&description={{ expense.description|urlencode }}&amount={{ expense.amount|urlencode }}&repeat_next_month={{ expense.repeat_next_month|urlencode }}"><i class="fa fa-clone fa-fw"></i> Duplicate</a>
     <form action="{% url 'sheets:expense-delete' pk=expense.pk %}" method="post">

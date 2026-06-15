@@ -341,3 +341,24 @@ body, p {
 [data-theme="dark"] .jumbotron h3 {
     color: #f8f9fa !important;
 }
+
+[data-theme="dark"] .list-group-item {
+    background-color: #16213e !important;
+    color: #f8f9fa !important;
+    border-color: #0f3460 !important;
+}
+
+[data-theme="dark"] .list-group-item:hover {
+    background-color: #1d2b4d !important;
+}
+
+[data-theme="dark"] .btn-secondary {
+    background-color: #2d3f68 !important;
+    border-color: #3f5a8a !important;
+    color: #f8f9fa !important;
+}
+
+[data-theme="dark"] .btn-secondary:hover {
+    background-color: #3f5a8a !important;
+    border-color: #5b7cb8 !important;
+}
