@@ -2,11 +2,8 @@ import calendar
 import datetime
 import statistics
 from collections import defaultdict
-
 from django.contrib.auth import login as auth_login
 from django.urls import reverse
-
-
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -14,9 +11,7 @@ from django.contrib.messages.views import SuccessMessageMixin
 from django.db.models import Avg, Q, Sum
 from django.db.models.functions import TruncMonth
 from django.shortcuts import render
-
 from decimal import Decimal
-
 from django.urls import reverse_lazy
 from django.views.generic import ListView
 from django.views.generic.dates import MonthArchiveView
@@ -30,6 +25,7 @@ from ihatetobudget.utils.views import (
 
 import csv
 import io
+import zipfile
 
 from django.contrib.auth import login, logout
 from django.contrib.auth.decorators import login_required
@@ -318,15 +314,18 @@ def receipts_month_download_view(request, year: int, month: int):
     if not receipts:
         raise Http404("No receipts found for this month")
 
+    def _filename_from_field(receipt_field):
+        # receipt_field.name is the storage key like "receipts/2026/06/abc.pdf"
+        # Use the last path segment as the download filename.
+        return receipt_field.name.rsplit("/", 1)[-1] if receipt_field.name else "receipt"
+
     if len(receipts) == 1:
         receipt_field = receipts[0]
-        # FileResponse can stream the underlying file
         return FileResponse(
             receipt_field.open("rb"),
             as_attachment=True,
-            filename=receipt_field.name.split("/")[-1],
+            filename=_filename_from_field(receipt_field),
         )
-
 
     # Multiple: zip them.
     buffer = io.BytesIO()
@@ -334,7 +333,7 @@ def receipts_month_download_view(request, year: int, month: int):
         for receipt_field in receipts:
             f = receipt_field.open("rb")
             try:
-                zf.writestr(receipt_field.name.split("/")[-1], f.read())
+                zf.writestr(_filename_from_field(receipt_field), f.read())
             finally:
                 f.close()
 
