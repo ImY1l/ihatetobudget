@@ -6,19 +6,139 @@
   {% include 'sheets/macros/page_header_beginning.html' with title=title %}
   {% include 'sheets/macros/page_header_end.html' %}
 
-  <div class="row justify-content-md-center">
-    <div class="col-lg-6">
-      <form method="post" class="form" enctype="multipart/form-data">
-        {% csrf_token %}
-        {% bootstrap_form form %}
-        <hr class="mt-5 mb-3">
-        <div class="text-right">
-          {% spaceless %}
-            <button type="button" class="btn btn-light mr-2" onclick="javascript:history.back();"><i class="fa fa-times fa-fw"></i> Cancel</button>
-            <button type="submit" class="btn btn-success"><i class="fa fa-floppy-o fa-fw"></i> Save</button>
-          {% endspaceless %}
+  <style>
+    /* Keeps all standard text, numeric, and select fields perfectly aligned */
+    .ihtb-card-form .form-group label,
+    .col-lg-6 .form-group label {
+      display: block !important;
+      margin-bottom: 0.5rem;
+      font-weight: 600;
+      text-align: left;
+    }
+
+    .ihtb-card-form .form-group input:not([type="checkbox"]),
+    .ihtb-card-form .form-group select,
+    .ihtb-card-form .form-group textarea,
+    .col-lg-6 .form-group input:not([type="checkbox"]),
+    .col-lg-6 .form-group select,
+    .col-lg-6 .form-group textarea {
+      display: block !important;
+      width: 100% !important;
+      padding: 0.375rem 0.75rem;
+      font-size: 1rem;
+      line-height: 1.5;
+      color: #495057;
+      background-color: #fff;
+      border: 1px solid #ced4da;
+      border-radius: 0.25rem;
+      box-sizing: border-box;
+    }
+
+    /* Clean spacing adjustment for standard help text */
+    .ihtb-card-form .form-group small.form-text,
+    .ihtb-card-form .form-group ul,
+    .col-lg-6 .form-group small.form-text,
+    .col-lg-6 .form-group ul {
+      display: block;
+      margin-top: 0.25rem;
+      text-align: left;
+    }
+
+    /* Checkbox alignment tweaks */
+    .checkbox-container input[type="checkbox"] {
+      width: auto !important;
+      margin-top: 0.25rem;
+      margin-right: 0.5rem; /* Pushes the descriptive text away from the box box */
+      cursor: pointer;
+    }
+    .checkbox-container label {
+      display: inline !important;
+      margin-bottom: 0 !important;
+    }
+  </style>
+
+  {% if title == 'New Expense' %}
+    <div class="mx-auto" style="max-width: 26rem;">
+      <div class="card shadow-sm">
+        <div class="card-body ihtb-card-form">
+          <form method="post" class="form" enctype="multipart/form-data">
+            {% csrf_token %}
+            
+            {% for field in form %}
+              {# Check if the widget is a checkbox to treat it with custom layout handling #}
+              {% if "checkbox" in field.field.widget.attrs.class or field.field.widget.input_type == "checkbox" %}
+                <div class="form-group mb-3 text-left">
+                  <div class="checkbox-container d-flex align-items-start">
+                    {{ field }}
+                    <div>
+                      <label for="{{ field.id_for_label }}" class="font-weight-bold d-inline">{{ field.label }}</label>
+                      {% if field.help_text %}
+                        <small class="form-text text-muted m-0 mt-1">{{ field.help_text|safe }}</small>
+                      {% endif %}
+                    </div>
+                  </div>
+                </div>
+              {% else %}
+                <div class="form-group text-left mb-3">
+                  <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                  {{ field }}
+                  {% if field.help_text %}
+                    <small class="form-text text-muted">{{ field.help_text|safe }}</small>
+                  {% endif %}
+                </div>
+              {% endif %}
+            {% endfor %}
+
+            <hr class="mt-4 mb-3">
+            <div class="text-right">
+              {% spaceless %}
+                <button type="button" class="btn btn-light mr-2" onclick="javascript:history.back();"><i class="fa fa-times fa-fw"></i> Cancel</button>
+                <button type="submit" class="btn btn-success"><i class="fa fa-floppy-o fa-fw"></i> Save</button>
+              {% endspaceless %}
+            </div>
+          </form>
         </div>
-      </form>
+      </div>
     </div>
-  </div>
+  {% else %}
+    <div class="row justify-content-md-center">
+      <div class="col-lg-6">
+        <form method="post" class="form" enctype="multipart/form-data">
+          {% csrf_token %}
+          
+          {% for field in form %}
+            {% if "checkbox" in field.field.widget.attrs.class or field.field.widget.input_type == "checkbox" %}
+              <div class="form-group mb-3 text-left">
+                <div class="checkbox-container d-flex align-items-start">
+                  {{ field }}
+                  <div>
+                    <label for="{{ field.id_for_label }}" class="font-weight-bold d-inline">{{ field.label }}</label>
+                    {% if field.help_text %}
+                      <small class="form-text text-muted m-0 mt-1">{{ field.help_text|safe }}</small>
+                    {% endif %}
+                  </div>
+                </div>
+              </div>
+            {% else %}
+              <div class="form-group text-left mb-3">
+                <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                {{ field }}
+                {% if field.help_text %}
+                  <small class="form-text text-muted">{{ field.help_text|safe }}</small>
+                {% endif %}
+              </div>
+            {% endif %}
+          {% endfor %}
+
+          <hr class="mt-4 mb-3">
+          <div class="text-right">
+            {% spaceless %}
+              <button type="button" class="btn btn-light mr-2" onclick="javascript:history.back();"><i class="fa fa-times fa-fw"></i> Cancel</button>
+              <button type="submit" class="btn btn-success"><i class="fa fa-floppy-o fa-fw"></i> Save</button>
+            {% endspaceless %}
+          </div>
+        </form>
+      </div>
+    </div>
+  {% endif %}
 {% endblock %}
