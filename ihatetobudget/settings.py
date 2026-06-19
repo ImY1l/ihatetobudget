@@ -77,7 +77,7 @@ INSTALLED_APPS = [
     "colorfield",
 
     # bootstrap4 is only needed for template tag libraries (used in base.html).
-    "bootstrap4",
+    # "bootstrap4",
 
 
     "sheets.apps.SheetsConfig",
