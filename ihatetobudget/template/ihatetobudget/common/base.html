@@ -57,11 +57,11 @@ $(function () {
         var $trigger = $(trigger);
         var windowWidth = $(window).width();
 
-        var xs = $trigger.attr('data-placement-xs');
-        var sm = $trigger.attr('data-placement-sm');
-        var md = $trigger.attr('data-placement-md');
-        var lg = $trigger.attr('data-placement-lg');
-        var general = $trigger.attr('data-placement');
+        var xs = $trigger.attr('data-bs-placement-xs');
+        var sm = $trigger.attr('data-bs-placement-sm');
+        var md = $trigger.attr('data-bs-placement-md');
+        var lg = $trigger.attr('data-bs-placement-lg');
+        var general = $trigger.attr('data-bs-placement');
 
         return (windowWidth >= 1200 ? lg : undefined) ||
             (windowWidth >= 992 ? md : undefined) ||
