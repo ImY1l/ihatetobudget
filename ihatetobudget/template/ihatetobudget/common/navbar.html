@@ -5,7 +5,7 @@
       <img src="{% static 'logo.png' %}" height="30" alt="IHateToBudget" loading="lazy">
     </a>
     {% if user.is_authenticated %}
-      <span class="navbar-text mr-3">
+      <span class="navbar-text me-3">
         <span class="badge badge-pill badge-info font-weight-bold">{% now "jS F" %}</span>
       </span>
     {% endif %}
@@ -14,7 +14,7 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
       <div class="dropdown-divider"></div>
-      <ul class="navbar-nav mr-auto">
+      <ul class="navbar-nav me-auto">
         {% if user.is_authenticated %}
           <li class="nav-item">
             {% if current_sheet_date %}
@@ -42,7 +42,7 @@
         {% if user.is_authenticated %}
           <li class="nav-item dropdown d-none d-lg-block">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown2" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              <i class="fa fa-plus-square" data-toggle="tooltip" data-placement="top" title="New&hellip;"></i></a>
+              <i class="fa fa-plus-square" data-bs-toggle="tooltip" data-placement="top" title="New&hellip;"></i></a>
             <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown2">
               <a class="dropdown-item" href="{% url 'sheets:expense-new' %}">New expense</a>
               <a class="dropdown-item" href="{% url 'sheets:category-new' %}">New category</a>
@@ -89,7 +89,7 @@
             <a class="nav-link" href="{% url 'login' %}">Sign in <i class="fa fa-sign-in fa-fw"></i></a>
           </li>
         {% endif %}
-        <li class="nav-item d-flex align-items-center ml-1">
+        <li class="nav-item d-flex align-items-center ms-1">
           <button class="dark-mode-toggle" id="darkModeToggle" title="Switch to Dark Mode" aria-label="Toggle dark mode">
             <i class="fa fa-moon-o"></i>
           </button>

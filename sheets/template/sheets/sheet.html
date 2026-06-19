@@ -23,18 +23,18 @@
   <div class="d-flex justify-content-between align-items-center">
     {% if previous_month %}
       {% url 'sheets:receipts_month_view' previous_month.year previous_month.month as url %}
-      <a href="{{ url }}"><i class="fa fa-hand-o-left text-dark" data-toggle="tooltip" title="{{ previous_month|date:"F Y" }}"></i></a>
+      <a href="{{ url }}"><i class="fa fa-hand-o-left text-dark" data-bs-toggle="tooltip" title="{{ previous_month|date:"F Y" }}"></i></a>
     {% else %}
-      <span class="text-muted"><i class="fa fa-hand-o-left" data-toggle="tooltip" title="No previous month"></i></span>
+      <span class="text-muted"><i class="fa fa-hand-o-left" data-bs-toggle="tooltip" title="No previous month"></i></span>
     {% endif %}
 
     <p class="h3 text-center fx-fadein mb-0">{{ total_amount|currency }}</p>
 
     {% if next_month %}
       {% url 'sheets:receipts_month_view' next_month.year next_month.month as url %}
-      <a href="{{ url }}"><i class="fa fa-hand-o-right text-dark" data-toggle="tooltip" title="{{ next_month|date:"F Y" }}"></i></a>
+      <a href="{{ url }}"><i class="fa fa-hand-o-right text-dark" data-bs-toggle="tooltip" title="{{ next_month|date:"F Y" }}"></i></a>
     {% else %}
-      <span class="text-muted"><i class="fa fa-hand-o-right" data-toggle="tooltip" title="No next month"></i></span>
+      <span class="text-muted"><i class="fa fa-hand-o-right" data-bs-toggle="tooltip" title="No next month"></i></span>
     {% endif %}
   </div>
 
@@ -43,7 +43,7 @@
   <div class="progress mt-2 mb-4 rounded-pill" style="height: .5rem">
     {% for category in category_list %}
       {% setvar category.list|attrsum:'amount'|div:total_amount|mul:100 as bar_length %}
-      <div class="progress-bar {% if not forloop.first %}ml-1{%endif%}" role="progressbar" style="width: {{ bar_length }}%; background-color: {{ category.grouper.color|default:"#ddd" }};" aria-valuenow="{{ bar_length }}" aria-valuemin="0" aria-valuemax="100"></div>
+      <div class="progress-bar {% if not forloop.first %}ms-1{%endif%}" role="progressbar" style="width: {{ bar_length }}%; background-color: {{ category.grouper.color|default:"#ddd" }};" aria-valuenow="{{ bar_length }}" aria-valuemin="0" aria-valuemax="100"></div>
     {% endfor %}
   </div>
 
@@ -57,18 +57,18 @@
             {% if category.grouper is None %}
               <span class="font-italic font-weight-bold">No category</span>
             {% else %}
-              <span class="flex-fill text-truncate font-weight-bold" data-toggle="tooltip" data-placement="top" title="{{ category.grouper }}">
+              <span class="flex-fill text-truncate font-weight-bold" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ category.grouper }}">
                 {% include 'sheets/macros/category.html' with category=category.grouper %}
               </span>
             {% endif %}
 
-            <span class="ml-3">{{ category.list|attrsum:'amount'|currency }}</span>
+            <span class="ms-3">{{ category.list|attrsum:'amount'|currency }}</span>
           </div>
           <ul class="list-group list-group-flush">
             {% for expense in category.list|dictsort:'date' %}
               <li class="list-group-item d-flex align-items-center py-2 v-parent v-parent-bg"
-                  data-toggle="popover" data-trigger="hover" data-placement="top" data-placement-md="left" data-html="true"
-                  title='{{ expense|italic_if_future:expense.date }}{% include 'sheets/macros/potential_repeated_expense_icon.html' with expense=expense %}' data-content="{{ expense.date|date:'jS N' }}<br>{{ expense.amount|currency }}">
+                  data-bs-toggle="popover" data-bs-trigger="hover" data-bs-placement="top" data-bs-placement-md="left" data-bs-html="true"
+                  title='{{ expense|italic_if_future:expense.date }}{% include 'sheets/macros/potential_repeated_expense_icon.html' with expense=expense %}' data-bs-content="{{ expense.date|date:'jS N' }}<br>{{ expense.amount|currency }}">
                 <span class="flex-grow-1 text-truncate">
                   {% include 'sheets/macros/potential_repeated_expense_icon.html' with expense=expense %}
                   {{ expense|italic_if_future:expense.date }}

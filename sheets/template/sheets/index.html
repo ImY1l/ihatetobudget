@@ -15,12 +15,12 @@
             <div class="media-body">
               <h6 class="mt-0 text-uppercase">
                 Monthly average spend
-                <i class="fa fa-question-circle-o" data-toggle="tooltip" title="Only completed months are included"></i>
+                <i class="fa fa-question-circle-o" data-bs-toggle="tooltip" title="Only completed months are included"></i>
               </h6>
 
               <span class="h4 fx-fadein">{{ monthly_average_spend|currency }}</span>
             </div>
-            <span class="fa-stack fa-lg ml-3" style="font-size: 2rem;">
+            <span class="fa-stack fa-lg ms-3" style="font-size: 2rem;">
               <i class="fa fa-circle fa-stack-2x fa-inverse"></i>
               <i class="fa fa-calendar fa-stack-1x" style="color: var(--blue);"></i>
             </span>
@@ -36,7 +36,7 @@
               <h6 class="mt-0 text-uppercase">Median spend</h6>
               <span class="h4 fx-fadein">{{ median_spend|currency }}</span>
             </div>
-            <span class="fa-stack fa-lg ml-3" style="font-size: 2rem;">
+            <span class="fa-stack fa-lg ms-3" style="font-size: 2rem;">
               <i class="fa fa-circle fa-stack-2x fa-inverse"></i>
               <i class="fa fa-money fa-stack-1x" style="color: var(--green);"></i>
             </span>
@@ -50,10 +50,10 @@
     <h2 class="h3">Monthly insights</h2>
 
     {% if monthly_insights_dict %}
-      <ul class="nav nav-pills justify-content-end ml-3" id="myTab" role="tablist">
+      <ul class="nav nav-pills justify-content-end ms-3" id="myTab" role="tablist">
         {% for year in monthly_insights_dict %}
         <li class="nav-item" role="presentation">
-          <a class="nav-link {% if forloop.last %}active{% endif %}" id="monthlyInsights{{ year }}-tab" data-toggle="tab" href="#monthlyInsights{{ year }}" role="tab" aria-controls="monthlyInsights{{ year }}" aria-selected="{{ forloop.first|yesno:'true,false' }}">{{ year }}</a>
+          <a class="nav-link {% if forloop.last %}active{% endif %}" id="monthlyInsights{{ year }}-tab" data-bs-toggle="tab" href="#monthlyInsights{{ year }}" role="tab" aria-controls="monthlyInsights{{ year }}" aria-selected="{{ forloop.first|yesno:'true,false' }}">{{ year }}</a>
         </li>
         {% endfor %}
       </ul>

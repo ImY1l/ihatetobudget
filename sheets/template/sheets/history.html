@@ -6,7 +6,7 @@
   {% setvar request.GET.q as q %}
 
   {% include 'sheets/macros/page_header_beginning.html' with title=title %}
-    <span class="text-nowrap ml-3">{{ page_obj.start_index }} &ndash; {{ page_obj.end_index }} of {{ page_obj.paginator.count }} items</span>
+    <span class="text-nowrap ms-3">{{ page_obj.start_index }} &ndash; {{ page_obj.end_index }} of {{ page_obj.paginator.count }} items</span>
   {% include 'sheets/macros/page_header_end.html' %}
 
   <form action="" method="get">

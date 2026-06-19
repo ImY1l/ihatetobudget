@@ -26,7 +26,7 @@
         {% setvar True as should_collapse %}
       {% endif %}
 
-      <a class="nav-collapse d-block {{ should_collapse|yesno:'collapsed,' }}" data-toggle="collapse" href="#collapseYear{{ year_group.grouper }}" role="button" aria-expanded="{{ should_collapse|yesno:'false,true' }}" aria-controls="collapseYear{{ year_group.grouper }}">
+      <a class="nav-collapse d-block {{ should_collapse|yesno:'collapsed,' }}" data-bs-toggle="collapse" href="#collapseYear{{ year_group.grouper }}" role="button" aria-expanded="{{ should_collapse|yesno:'false,true' }}" aria-controls="collapseYear{{ year_group.grouper }}">
         <i class="fa fa-caret-right fa-fw"></i>{{ year_group.grouper }}
       </a>
 
