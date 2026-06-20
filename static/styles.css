@@ -296,10 +296,22 @@ body, p {
 }
 
 /* Homepage hero section */
+.jumbotron {
+    max-width: 900px;
+    margin: 2rem auto;
+    padding: 1.5rem;
+}
+
+.jumbotron img {
+    max-width: 220px;
+    height: auto;
+}
+
 [data-theme="dark"] .jumbotron {
-    background: #172445 !important;
-    color: #f8f9fa !important;
-    border: 1px solid #1f4f8a !important;
+    background-color: #16213e;
+    border: 1px solid #2d4e82;
+    border-radius: 0.5rem;
+    color: #f8f9fa;
 }
 
 [data-theme="dark"] .jumbotron p,
@@ -307,7 +319,7 @@ body, p {
 [data-theme="dark"] .jumbotron h1,
 [data-theme="dark"] .jumbotron h2,
 [data-theme="dark"] .jumbotron h3 {
-    color: #f8f9fa !important;
+    color: #f8f9fa;
 }
 
 [data-theme="dark"] .list-group-item {
