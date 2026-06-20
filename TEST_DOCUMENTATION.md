@@ -3,7 +3,7 @@
 **Project:** ihatetobudget — Open Source Personal Finance Platform  
 **Course:** CSE6364 Software Maintenance and Evolution  
 **Group:** Group 4  
-**Author:** Farah Hanim binti Mohd Zamri (1221305625) — Enhancement #5 (Perfective Maintenance — Testing & Quality)  
+**Author:** Farah Hanim binti Mohd Zamri, Mohammed Aamena Mohammed Abdulkarem, Mohammed Yousef Mohammed Abdulkarem
 **Date:** June 2026
 
 ---
