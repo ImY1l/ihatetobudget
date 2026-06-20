@@ -68,7 +68,7 @@ ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS", "127.0.0.1,localhost").sp
 
 INSTALLED_APPS = [
     "django_crontab",
-    # "mathfilters" is optional in some environments.
+    "mathfilters",
     # It's used only for template filters; if it's not installed, we can
     # still run the app's core tests.
     
