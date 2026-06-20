@@ -367,7 +367,46 @@ def budget_dashboard(request, year=None, month=None):
     year = year or today.year
     month = month or today.month
 
-    # Only show budgets configured by this user.
+    # Handle create/update from the dashboard
+    if request.method == "POST":
+        form = BudgetLimitForm(request.POST)
+        also_next_month = request.POST.get("also_next_month") == "on"
+
+        if form.is_valid():
+            budget = form.save(commit=False)
+            budget.user = request.user
+            budget.year = year
+            budget.month = month
+            budget.save()
+
+            if also_next_month:
+                # Create/update same budget for the next month/year
+                next_year = year
+                next_month = month + 1
+                if next_month == 13:
+                    next_month = 1
+                    next_year = year + 1
+
+                BudgetLimit.objects.update_or_create(
+                    user=request.user,
+                    category=budget.category,
+                    year=next_year,
+                    month=next_month,
+                    defaults={"limit_amount": budget.limit_amount},
+                )
+
+        # PRG
+        return render(
+            request,
+            "sheets/budget.html",
+            {
+                "title": "Budget",
+                "month": month,
+                "year": year,
+                "budget_form": BudgetLimitForm(initial={"month": month, "year": year}),
+            },
+        )
+
     budgets = BudgetLimit.objects.filter(
         user=request.user,
         year=year,
@@ -420,5 +459,7 @@ def budget_dashboard(request, year=None, month=None):
             "month": month,
             "year": year,
             "budget_status": budget_status,
+            "budget_form": BudgetLimitForm(initial={"month": month, "year": year}),
         },
     )
+
