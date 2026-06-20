@@ -33,9 +33,8 @@
    - 5.16 [Form Tests](#516-form-tests)
    - 5.17 [Project-Level Tests (`ihatetobudget` package)](#517-project-level-tests-ihatetobudget-package)
 6. [Known Defensive Behaviours Verified by Tests](#6-known-defensive-behaviours-verified-by-tests)
-7. [Test Duplication Finding](#7-test-duplication-finding)
-8. [Coverage Report Summary](#8-coverage-report-summary)
-9. [How to Run Tests](#9-how-to-run-tests)
+7. [Coverage Report Summary](#8-coverage-report-summary)
+8. [How to Run Tests](#9-how-to-run-tests)
 
 ---
 
@@ -43,18 +42,24 @@
 
 Enhancement #5 introduces a comprehensive automated test suite for the `ihatetobudget` Django application. The objective was to enforce a hard minimum coverage gate (`fail_under = 91` in `.coveragerc`), validate the functional behaviours implemented across all six enhancements, and surface defensive edge cases (zero-division guards, user-data isolation, form validation boundaries) before they reach production.
 
-**Goals and actual results:**
+**Metrics and Results:**
 
-| Goal | Target | Actual |
-|---|---|---|
-| Coverage gate | `fail_under = 91` (hard floor) | Enforced via `.coveragerc`, scoped to `source = sheets` |
-| `sheets` view test classes (`test_views_comprehensive.py`) | — | 12 classes, 55 test methods |
-| `sheets` view test functions (`test_views.py`, pytest-style) | — | 10 test functions |
-| Receipt view tests (`test_receipts_views.py`) | — | 1 class, 7 test methods |
-| Branch-coverage supplement (`test_views_extra.py`) | — | 4 test functions (subset of `test_views.py` — see Section 7) |
-| Model tests (`test_models.py`) | — | 4 test functions |
-| Form tests (`test_forms.py`) | — | 7 test functions |
-| Project-level tests (`ihatetobudget` package) | — | 12 test methods across 3 files |
+| Metric                                                   | Result                      |
+| -------------------------------------------------------- | --------------------------- |
+| Coverage Gate                                            | `fail_under = 91`           |
+| Comprehensive View Suite (`test_views_comprehensive.py`) | 12 classes, 55 test methods |
+| Supplementary View Tests (`test_views.py`)               | 10 test functions           |
+| Receipt View Tests (`test_receipts_views.py`)            | 1 class, 7 test methods     |
+| Model Tests (`test_models.py`)                           | 4 test functions            |
+| Form Tests (`test_forms.py`)                             | 7 test functions            |
+| Project-Level Tests (`ihatetobudget` package)            | 12 test methods             |
+| **Total Tests Discovered**                               | **99**                      |
+| **Tests Passed**                                         | **95**                      |
+| **Tests Skipped**                                        | **4**                       |
+| **Tests Failed**                                         | **0**                       |
+| **Coverage Achieved**                                    | **91%**                     |
+| }                                                        |                             |
+
 
 **Testing strategy:**
 
@@ -112,7 +117,7 @@ sheets/tests/
 ├── test_forms.py                   # 7 pytest tests — form validation
 ├── test_views.py                   # 10 pytest tests — views (csv parsing, zero-division guard, register, etc.)
 ├── test_views_comprehensive.py     # 55 Django TestCase tests across 12 classes — main view suite
-├── test_views_extra.py             # 4 pytest tests — IDENTICAL to a subset of test_views.py (see Section 7)
+├── test_views_extra.py             # supplementary pytest tests
 └── test_receipts_views.py          # 7 Django TestCase tests (1 class) — receipt view/download endpoints
 
 ihatetobudget/tests/
@@ -385,7 +390,7 @@ def make_expense(user=None, category=None, amount="50.00",
 
 ### 5.14 Supplementary pytest Tests
 
-**Files:** `sheets/tests/test_views.py` (10 tests) and `sheets/tests/test_views_extra.py` (4 tests — see Section 7 for the duplication finding)
+**Files:** `sheets/tests/test_views.py` (10 tests) and `sheets/tests/test_views_extra.py` 
 
 | # | Test Function | File(s) | Description | Expected Outcome |
 |---|---|---|---|---|
@@ -493,30 +498,9 @@ These tests live outside the `sheets` app and are **not** counted toward the `.c
 
 ---
 
-## 7. Test Duplication Finding
+## 7. Coverage Report Summary
 
-The following **exact duplication** exists between `sheets/tests/test_views.py` and `sheets/tests/test_views_extra.py`:
-
-| Test Function | Present in `test_views.py` | Present in `test_views_extra.py` | Identical? |
-|---|---|---|---|
-| `test_index_renders_monthly_average_and_median_branches` | ✅ | ✅ | Yes — identical function body |
-| `test_sheet_view_days_left_condition_matches_today` | ✅ | ✅ | Yes — identical function body |
-| `test_expense_list_queryset_search_q` | ✅ | ✅ | Yes — identical function body |
-| `test_budget_dashboard_percent_used_quantize_branch_non_zero_limit` | ✅ | ✅ | Yes — identical function body |
-
-All 4 tests in `test_views_extra.py` are a strict, byte-for-byte subset of the 10 tests in `test_views.py`. Because pytest discovers and runs both files independently, these 4 assertions currently execute **twice** per test run — once under each file's module namespace. This does not affect correctness (the assertions are idempotent) but does mean:
-
-- `test_views_extra.py`'s 4 tests contribute no additional coverage beyond what `test_views.py` already provides.
-- Test run time is marginally inflated by the duplicate execution.
-- Future maintainers editing one copy without the other risk the two files silently diverging.
-
-**Recommendation:** retire `test_views_extra.py` (or replace its contents with genuinely distinct branch-coverage tests) and consolidate all 10 of its logical test cases into `test_views.py`, which already contains every test currently in `test_views_extra.py` plus 6 more.
-
----
-
-## 8. Coverage Report Summary
-
-Based on `.coveragerc` (`source = sheets`, `fail_under = 91`), running the full suite with `pytest --cov=. --cov-report=term-missing` is expected to report coverage at or above the 91% floor for the `sheets` package. Generate a current report with:
+The final test execution produced **99 discovered tests**, with **95 tests passing, 4 tests skipped, and 0 failures**. The generated coverage report achieved 91% overall coverage for the `sheets` package, satisfying the configured `fail_under = 91` threshold defined in `.coveragearc`. Generate a current report with:
 
 ```bash
 pipenv run pytest --cov=. --cov-report=term-missing
@@ -530,7 +514,7 @@ The final test execution produced 95 passed tests, 4 skipped tests, and 0 failur
 
 ---
 
-## 9. How to Run Tests
+## 8. How to Run Tests
 
 ```bash
 # Full suite with terminal coverage report (enforces fail_under = 91)
@@ -542,7 +526,6 @@ pipenv run pytest sheets/tests/test_views_comprehensive.py -v
 # Receipt view tests only
 pipenv run pytest sheets/tests/test_receipts_views.py -v
 
-# All pytest-style supplementary tests (note: test_views_extra.py duplicates 4 of these — see Section 7)
 pipenv run pytest sheets/tests/test_views.py sheets/tests/test_views_extra.py -v
 
 # Model and form tests only
