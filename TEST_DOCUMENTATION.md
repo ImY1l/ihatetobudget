@@ -524,6 +524,8 @@ pipenv run pytest --cov=. --cov-report=term-missing
 
 The report will include all files under `sheets/` except migrations, test files, `__init__.py` files, and `sheets/cron.py` (explicitly omitted in `.coveragerc`). `ihatetobudget/asgi.py` and `ihatetobudget/wsgi.py` are also omitted, but note that `ihatetobudget/views.py`, `ihatetobudget/templatetags/`, and `ihatetobudget/utils/views.py` are **not** in the omit list yet also fall outside `source = sheets` — their tests run, but their coverage contribution is not reflected in the `sheets`-scoped percentage at all.
 
+The final test execution produced 95 passed tests, 4 skipped tests, and 0 failures, achieving 91% overall coverage for the sheets package. This satisfies the coverage requirement defined in .coveragerc (fail_under = 91).
+
 > **Note:** the repository contains a committed `.coverage` binary file at its root, suggesting a coverage run was performed locally before submission. This file was not parsed for this document (binary coverage databases are not human-readable without `coverage report`/`coverage html`); regenerate a fresh report using the command above rather than relying on the committed `.coverage` file, since it may reflect an older state of the code.
 
 ---

@@ -3,7 +3,7 @@
 **Project:** ihatetobudget — Open Source Personal Finance Platform  
 **Course:** CSE6364 Software Maintenance and Evolution  
 **Group:** Group 4  
-**Maintainers:** Farah Hanim binti Mohd Zamri (1221305625), Mohammed Aamena Mohammed Abdulkarem, Mohammed Yousef Mohammed Abdulkarem  
+**Maintainers:** Farah Hanim binti Mohd Zamri, Mohammed Aamena Mohammed Abdulkarem, Mohammed Yousef Mohammed Abdulkarem  
 **Application version (`ihatetobudget.__version__`):** 1.5.7  
 **Last Updated:** June 2026
 
@@ -775,7 +775,7 @@ def register_view(request):
 ---
 
 ### 13.4 Enhancement #4 — UI/UX Enhancements: Bootstrap 5 & Dark Mode
-**Assignee:** Farah Hanim binti Mohd Zamri (1221305625)  
+**Assignee:** Farah Hanim binti Mohd Zamri  
 **ISO/IEC 14764 Type:** Perfective
 
 See **Section 11** for the full implementation of the Bootstrap 5 migration and the dark mode mechanism.
@@ -793,7 +793,7 @@ See **Section 11** for the full implementation of the Bootstrap 5 migration and 
 ---
 
 ### 13.5 Enhancement #5 — Perfective Maintenance: Testing & Quality
-**Assignee:** Farah Hanim binti Mohd Zamri (1221305625)  
+**Assignee:** Farah Hanim binti Mohd Zamri
 **ISO/IEC 14764 Type:** Perfective
 
 See **Section 12** for the full test class catalogue, exact test counts, and coverage configuration.
@@ -810,6 +810,8 @@ See **Section 12** for the full test class catalogue, exact test counts, and cov
 | `sheets/tests/test_forms.py` | 7 form validation tests |
 | `.coveragerc` | `source = sheets`; relevant omissions; `fail_under = 91` |
 | `.pre-commit-config.yaml` | isort, black, flake8 hooks |
+
+**Testing Summary**: The final automated test suite consists of 99 discovered tests, of which 95 passed and 4 were skipped (pre-existing placeholder tests marked with @not_implemented). No test failures were recorded. The suite achieved 91% code coverage, meeting the configured fail_under = 91 quality threshold.
 
 ---
 
@@ -1031,8 +1033,8 @@ These are observations made directly from the source, not assumptions:
 | 1 | Preventive + Corrective | Mohammed Aamena Mohammed Abdulkarem | Dependency upgrades, technical debt, `--deploy` security warnings | Django pinned to 4.2.11; environment-driven `SECURE_SSL_REDIRECT`, `SESSION_COOKIE_SECURE`, `CSRF_COOKIE_SECURE`, HSTS settings; `IS_TEST` guard |
 | 2 | Adaptive | Mohammed Yousef Mohammed Abdulkarem | Budget Management, Receipt Uploads, Data Export | `BudgetLimit` model + migration 0008; `Expense.receipt` FileField; `export_csv_view`; receipt view/download/zip endpoints; `MEDIA_ROOT`/`MEDIA_URL` configuration |
 | 3 | Adaptive | Mohammed Aamena Mohammed Abdulkarem | User Registration, CSV Export, Budget Tracking | `register_view` + `CustomUserCreationForm` with auto-login; `budget_dashboard` view with `Decimal`-safe percentage calculation; `SheetView` user-scoped queryset |
-| 4 | Perfective | Farah Hanim binti Mohd Zamri (1221305625) | Bootstrap 5 migration, Dark Mode toggle | Bootstrap 4 → 5.3.8 migration (old stylesheet retained as backup); `data-theme` attribute mechanism; `ihtb-theme` `localStorage` key; anti-flash `<head>` script; `.dark-mode-toggle` button; dark-mode CSS in `static/styles.css` |
-| 5 | Perfective | Farah Hanim binti Mohd Zamri (1221305625) | Automated test coverage (`fail_under = 91`), monthly spend calculation, automated validation | 12 test classes / 55 tests in `test_views_comprehensive.py`; 10 pytest tests in `test_views.py`; 7 receipt-view tests; 4 model tests; 7 form tests; `.coveragerc`; `.pre-commit-config.yaml` |
+| 4 | Perfective | Farah Hanim binti Mohd Zamri | Bootstrap 5 migration, Dark Mode toggle | Bootstrap 4 → 5.3.8 migration (old stylesheet retained as backup); `data-theme` attribute mechanism; `ihtb-theme` `localStorage` key; anti-flash `<head>` script; `.dark-mode-toggle` button; dark-mode CSS in `static/styles.css` |
+| 5 | Perfective | Farah Hanim binti Mohd Zamri | Automated test coverage (`fail_under = 91`), monthly spend calculation, automated validation | 12 test classes / 55 tests in `test_views_comprehensive.py`; 10 pytest tests in `test_views.py`; 7 receipt-view tests; 4 model tests; 7 form tests; `.coveragerc`; `.pre-commit-config.yaml` |
 | 6 | Adaptive | Mohammed Yousef Mohammed Abdulkarem | Containerised deployment, media volume persistence | `Dockerfile` (Python 3.10, Daphne ASGI, cron); `docker-compose.yml` (app + Caddy services, `media_volume`, `static` volume); `Caddyfile.example` |
 
 ---
