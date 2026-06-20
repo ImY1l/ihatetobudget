@@ -58,8 +58,6 @@ Enhancement #5 introduces a comprehensive automated test suite for the `ihatetob
 | **Tests Skipped**                                        | **4**                       |
 | **Tests Failed**                                         | **0**                       |
 | **Coverage Achieved**                                    | **91%**                     |
-| }                                                        |                             |
-
 
 **Testing strategy:**
 
