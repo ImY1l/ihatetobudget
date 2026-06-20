@@ -1,7 +1,6 @@
 from datetime import date
 from decimal import Decimal
 
-from colorfield.fields import ColorField
 from django.contrib.auth.models import User
 from django.core.validators import MinValueValidator
 from django.db import models
@@ -9,11 +8,12 @@ from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 
 
-
-
 class Category(models.Model):
     name = models.CharField(max_length=200)
-    color = ColorField(default="#FFFFFF")
+    color = models.CharField(
+    max_length=7,
+    default="#FFFFFF"
+    )
 
     def __str__(self):
         return self.name

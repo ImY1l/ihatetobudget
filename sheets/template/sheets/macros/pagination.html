@@ -1,4 +1,5 @@
 {% load ihatetobudget_extras %}
+{% if page_obj.paginator.num_pages > 1 %}
 <nav aria-label="History navigation" class="mt-4">
     <ul class="pagination justify-content-center">
       {% if page_obj.has_previous %}
@@ -18,7 +19,7 @@
           <li class="page-item active" aria-current="page">
             <span class="page-link">
               {{ page_number }}
-              <span class="sr-only">(current)</span>
+              <span class="visually-hidden">(current)</span>
             </span>
           </li>
         {% else %}
@@ -41,3 +42,4 @@
       {% endif %}
     </ul>
   </nav>
+  {% endif %}

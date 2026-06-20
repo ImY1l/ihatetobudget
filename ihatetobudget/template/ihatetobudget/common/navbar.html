@@ -6,7 +6,7 @@
     </a>
     {% if user.is_authenticated %}
       <span class="navbar-text me-3">
-        <span class="badge badge-pill badge-info font-weight-bold">{% now "jS F" %}</span>
+        <span class="badge rounded-pill date-badge">{% now "jS F" %}</span>
       </span>
     {% endif %}
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -18,9 +18,9 @@
         {% if user.is_authenticated %}
           <li class="nav-item">
             {% if current_sheet_date %}
-              <a class="nav-link" href="{% url 'sheets:receipts_month_view' current_sheet_date.year current_sheet_date.month %}">Current sheet</a>
+              <a class="nav-link" href="{% url 'sheets:receipts_month_view' current_sheet_date.year current_sheet_date.month %}">Receipt</a>
             {% else %}
-              <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Current sheet</a>
+              <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Receipt</a>
             {% endif %}
           </li>
           <li class="nav-item">
@@ -52,7 +52,7 @@
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown1" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               <i class="fa fa-user-circle fa-lg"></i></a>
             <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown1">
-              <h6 class="dropdown-header">Signed in as <span class="font-weight-bolder">{{ request.user }}</span></h6>
+              <h6 class="dropdown-header">Signed in as <span class="fw-bold">{{ request.user }}</span></h6>
               <a class="dropdown-item" href="{% url 'logout' %}"><i class="fa fa-sign-out fa-fw"></i> Sign out</a>
             </div>
           </li>
@@ -68,7 +68,7 @@
 
             <div class="dropdown-divider"></div>
             <span class="navbar-text h6 pb-0 mb-0">
-              Signed in as <span class="font-weight-bolder">{{ request.user }}</span>
+              Signed in as <span class="fw-bold">{{ request.user }}</span>
             </span>
             <h6 class="nav-header"></h6>
             <li class="nav-item">

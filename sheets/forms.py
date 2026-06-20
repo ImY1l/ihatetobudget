@@ -15,12 +15,19 @@ class ExpenseForm(forms.ModelForm):
 
 
 class CategoryForm(forms.ModelForm):
-    required_css_class = "form-group-required"
 
     class Meta:
         model = Category
         fields = "__all__"
 
+        widgets = {
+            "color": forms.TextInput(
+                attrs={
+                    "type": "color",
+                    "class": "form-control form-control-color",
+                }
+            )
+        }
 
 class BudgetLimitForm(forms.ModelForm):
     class Meta:
