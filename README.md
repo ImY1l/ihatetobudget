@@ -436,7 +436,7 @@ The project is maintained primarily for personal use. Contributions are welcome 
 
 Review developer documentation and follow branch naming and verification guidance when submitting changes.
 
-Contributions must follow a strict, risk-mitigated workflow to maintain code quality. Please review our formal [Contributing Manual]([https://www.google.com/search?q=CONTRIBUTING.md](https://github.com/ImY1l/ihatetobudget/blob/bootstrap5-full-migration/CONTRIBUTING.md) to understand branch naming conventions, mandatory pre-commit hooks integration, and pull request verification expectations.
+Contributions must follow a strict, risk-mitigated workflow to maintain code quality. Please review our formal [Contributing Manual](https://github.com/ImY1l/ihatetobudget/blob/bootstrap5-full-migration/CONTRIBUTING.md) to understand branch naming conventions, mandatory pre-commit hooks integration, and pull request verification expectations.
 
 ---
 
