@@ -436,6 +436,8 @@ The project is maintained primarily for personal use. Contributions are welcome 
 
 Review developer documentation and follow branch naming and verification guidance when submitting changes.
 
+Contributions must follow a strict, risk-mitigated workflow to maintain code quality. Please review our formal [Contributing Manual](https://www.google.com/search?q=CONTRIBUTING.md) to understand branch naming conventions (`feat/adaptive-`, `fix/corrective-`), mandatory pre-commit hooks integration (`bandit`, `safety`, `flake8`, `black`), and pull request verification expectations.
+
 ---
 
 ## License
@@ -444,20 +446,14 @@ The legacy repository is distributed under the GPLv3 License. See `COPYING` for 
 
 The evolved artifact references the MIT License in the header.
 
----
-
-## 🤝 Contributing Guidelines
-
-Contributions must follow a strict, risk-mitigated workflow to maintain code quality. Please review our formal [Contributing Manual](https://www.google.com/search?q=CONTRIBUTING.md) to understand branch naming conventions (`feat/adaptive-`, `fix/corrective-`), mandatory pre-commit hooks integration (`bandit`, `safety`, `flake8`, `black`), and pull request verification expectations.
 
 ---
 
-## 👥 Maintenance Team
+## Maintenance Team
 
-* **Mohammed Yousef Mohammed ABDULKAREM** (ID: 1221305727) — Preventive Refactoring & Budget Module
-* **Mohammed AAMENA Mohammed Abdulkarem** (ID: 1221305728) — Corrective Maintenance & Infrastructure Hardening
-* **FARAH HANIM BINTI MOHD ZAMRI** (ID: 1221305625) — Perfective Testing QA Gates, Authentication, & UI Theme Engine
-
+* **Mohammed Yousef Mohammed ABDULKAREM** (ID: 1221305727)
+* **Mohammed AAMENA Mohammed Abdulkarem** (ID: 1221305728)  
+* **FARAH HANIM BINTI MOHD ZAMRI** (ID: 1221305625) 
 ---
 
 *Developed for CSE6364 Software Evolution & Maintenance under the supervision of Dr. Dr. Zuriani Hayati Binti Abdullah at Multimedia University.*
