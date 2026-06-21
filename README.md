@@ -107,25 +107,95 @@ The evolved artifact follows ISO/IEC 14764:2022 maintenance discipline and inclu
 
 ## Screenshots
 
-### Categories
-Define categories and assign colors.
+### Dashboard & Home
+**Main Dashboard** - View your financial overview at a glance.
+
+![Main Dashboard](./screenshots/MainDashboard.png)
+
+**Home (New Design)** - Clean home interface for quick access.
+
+![Home New](./screenshots/home_new.png)
+
+**Dashboard (New Design)** - Enhanced dashboard with improved layout.
+
+![Dashboard New](./screenshots/dashboard_new.png)
+
+**Dashboard (Dark Mode)** - Dark mode support for reduced eye strain.
+
+![Dashboard Dark Mode](./screenshots/dashboard_dark_new.png)
+
+### Categories Management
+**Categories** - Define categories and assign colors.
 
 ![Categories](./screenshots/categories.png)
 
-### Sheet
-Add dated and categorized expenses that are automatically grouped by month.
+**Categories (Alternative View)** - View all categories in organized view.
+
+![CATs](./screenshots/CATs.png)
+
+**Create New Category** - Add new expense categories easily.
+
+![New Category](./screenshots/NewCat.png)
+
+**Create New Category (New Design)** - Streamlined category creation interface.
+
+![New Category New](./screenshots/new_category_new.png)
+
+**Edit Category** - Modify existing category settings.
+
+![Edit Category](./screenshots/EditCat.png)
+
+### Expense Management
+**Sheet** - Add dated and categorized expenses that are automatically grouped by month.
 
 ![Sheet](./screenshots/sheet.png)
 
-### Overview
-Analyze overall statistics.
+**Create New Expense** - Easy interface to log new expenses.
+
+![New Expense](./screenshots/NewExpence.png)
+
+**Edit Expense** - Modify expense details and information.
+
+![Edit Expense](./screenshots/EditExpence.png)
+
+**Delete Confirmation** - Confirmation dialog for removing expenses.
+
+![Delete Confirmation](./screenshots/DeleteConfirmation.png)
+
+### Budget Management
+**Budget Overview** - Set and track your budget limits.
+
+![Budget](./screenshots/Budget.png)
+
+**Budget Line Chart** - Visualize budget spending trends.
+
+![Budget Line](./screenshots/BudgetLine.png)
+
+### Analytics & History
+**Overview** - Analyze overall statistics and spending patterns.
 
 ![Overview](./screenshots/overview.png)
 
-### History
-Explore and filter all expense records.
+**History** - Explore and filter all expense records.
 
 ![History](./screenshots/history.png)
+
+**Expense History (New Design)** - Enhanced expense history view with better filtering.
+
+![Expense History New](./screenshots/expense_history_new.png)
+
+### Theme & Data
+**Dark Mode** - Complete dark mode theme for comfortable viewing.
+
+![Dark Mode](./screenshots/DarkMode.png)
+
+**Receipts** - Attach and manage digital receipt files for expenses.
+
+![Receipts](./screenshots/Receipts.png)
+
+**CSV Export** - Export your financial data for external analysis.
+
+![CSV Export](./screenshots/CSV.png)
 
 ---
 
