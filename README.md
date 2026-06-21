@@ -443,3 +443,23 @@ Review developer documentation and follow branch naming and verification guidanc
 The legacy repository is distributed under the GPLv3 License. See `COPYING` for full details.
 
 The evolved artifact references the MIT License in the header.
+
+---
+
+## 🤝 Contributing Guidelines
+
+Contributions must follow a strict, risk-mitigated workflow to maintain code quality. Please review our formal [Contributing Manual](https://www.google.com/search?q=CONTRIBUTING.md) to understand branch naming conventions (`feat/adaptive-`, `fix/corrective-`), mandatory pre-commit hooks integration (`bandit`, `safety`, `flake8`, `black`), and pull request verification expectations.
+
+---
+
+## 👥 Maintenance Team
+
+* **Mohammed Yousef Mohammed ABDULKAREM** (ID: 1221305727) — Preventive Refactoring & Budget Module
+* **Mohammed AAMENA Mohammed Abdulkarem** (ID: 1221305728) — Corrective Maintenance & Infrastructure Hardening
+* **FARAH HANIM BINTI MOHD ZAMRI** (ID: 1221305625) — Perfective Testing QA Gates, Authentication, & UI Theme Engine
+
+---
+
+*Developed for CSE6364 Software Evolution & Maintenance under the supervision of Dr. Dr. Zuriani Hayati Binti Abdullah at Multimedia University.*
+
+-
