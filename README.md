@@ -451,8 +451,8 @@ The evolved artifact references the MIT License in the header.
 
 ## Maintenance Team
 
-* **Mohammed Yousef Mohammed ABDULKAREM** (ID: 1221305727)
-* **Mohammed AAMENA Mohammed Abdulkarem** (ID: 1221305728)  
+* **Mohammed Yousef Mohammed Abdulkarem** (ID: 1221305727)
+* **Mohammed Aamena Mohammed Abdulkarem** (ID: 1221305728)  
 * **Farah Hanim binti Mohd Zamri** (ID: 1221305625) 
 ---
 
