@@ -135,12 +135,12 @@ The `screenshots/` directory contains both the original UI screenshots and a new
 | `screenshots/overview.png` | Original overview/dashboard screenshot |
 | `screenshots/sheet.png` | Original monthly sheet screenshot |
 | `screenshots/history.png` | Original expense history screenshot |
-| `screenshots/categories.png` | Categories list screenshot |
-| `screenshots/home_new.png` | Updated home/landing page (post Bootstrap 5) |
-| `screenshots/dashboard_new.png` | Updated dashboard (post Bootstrap 5) |
-| `screenshots/dashboard_dark_new.png` | Updated dashboard with **dark mode enabled** |
-| `screenshots/expense_history_new.png` | Updated expense history page |
-| `screenshots/new_category_new.png` | Updated "new category" form |
+| `screenshots/categories.png` | Original categories list screenshot |
+| `screenshots/Homepage.png` | Updated home/landing page (post Bootstrap 5) |
+| `screenshots/MainDashboard.png` | Updated dashboard (post Bootstrap 5) |
+| `screenshots/DarkMode.png` | Updated dashboard with **dark mode enabled** |
+| `screenshots/history.png` | Updated expense history page |
+| `screenshots/NewCat.png` | Updated "new category" form |
 
 When embedding screenshots in a report, prefer the `_new` files since they reflect the current Bootstrap 5 + dark mode UI rather than the legacy Bootstrap 4 appearance.
 
