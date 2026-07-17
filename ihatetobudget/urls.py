@@ -13,11 +13,8 @@ urlpatterns = [
     path("accounts/", include("django.contrib.auth.urls")),
 ]
 
-from sheets.views import budget_dashboard
-urlpatterns += [
-    path("budget/", budget_dashboard, name="budget_dashboard"),
-    path("budget/<int:year>/<int:month>/", budget_dashboard, name="budget_dashboard_monthly"),
-]
+
+
 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

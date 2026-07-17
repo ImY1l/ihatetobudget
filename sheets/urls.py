@@ -22,6 +22,14 @@ urlpatterns = [
         name="sheet",
     ),
 
+    #  Budget entries delete
+    path(
+        "budget/<int:pk>/delete/",
+        views.BudgetLimitDeleteView.as_view(),
+        name="budget-delete",
+    ),
+
+
     # Receipts (uploaded files) viewer/download
     path(
         "receipts/month/<int:year>/<int:month>/",

@@ -3,6 +3,7 @@ import datetime
 import statistics
 from collections import defaultdict
 from django.contrib.auth import login as auth_login
+from django.db import IntegrityError
 from django.urls import reverse
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
@@ -10,28 +11,27 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
 from django.db.models import Avg, Q, Sum
 from django.db.models.functions import TruncMonth
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
+from django.http import HttpResponse
+
+
 from decimal import Decimal
 from django.urls import reverse_lazy
 from django.views.generic import ListView
 from django.views.generic.dates import MonthArchiveView
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
-
 from ihatetobudget.utils.views import (
     InitialDataAsGETOptionsMixin,
     SortableListViewMixin,
     SuccessMessageOnDeleteViewMixin,
 )
-
 import csv
 import io
 import zipfile
-
 from django.contrib.auth import login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-
 from .forms import BudgetLimitForm, CategoryForm, CustomUserCreationForm, ExpenseForm
 from .models import BudgetLimit, Category, Expense
 
@@ -128,6 +128,7 @@ def index(request):
 
 
 class SheetView(LoginRequiredMixin, MonthArchiveView):
+
     template_name = "sheets/sheet.html"
     queryset = Expense.objects.all()
     date_field = "date"
@@ -141,6 +142,7 @@ class SheetView(LoginRequiredMixin, MonthArchiveView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+
         today = datetime.datetime.today()
         month = context["month"]
         if today.month == month.month and today.year == month.year:
@@ -149,6 +151,8 @@ class SheetView(LoginRequiredMixin, MonthArchiveView):
                 - today.day
             ) + 1
         return context
+
+
 
 
 class ExpenseCreateView(
@@ -191,10 +195,33 @@ class ExpenseUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     success_message = "Expense modified!"
 
 
+class BudgetLimitDeleteView(
+    LoginRequiredMixin, SuccessMessageOnDeleteViewMixin, DeleteView
+):
+    model = BudgetLimit
+    success_message = "Budget deleted!"
+
+    def get_queryset(self):
+        # Only allow deleting the logged-in user's budgets.
+        return super().get_queryset().filter(user=self.request.user)
+
+    def get_success_url(self):
+        year = self.request.GET.get("year")
+        month = self.request.GET.get("month")
+        if year and month:
+            return reverse_lazy(
+                "sheets:budget_dashboard_monthly",
+                kwargs={"year": year, "month": month},
+            )
+        return reverse_lazy("sheets:budget_dashboard")
+
+
 class ExpenseDeleteView(
     LoginRequiredMixin, SuccessMessageOnDeleteViewMixin, DeleteView
 ):
+
     #  XXX: a `template_name` must be defined if we want to delete via GET.
+
     #  Currently, we delete via POST (no need to render a template, since we
     #  redirect).
 
@@ -218,6 +245,7 @@ class ExpenseDeleteView(
 
 
 class ExpenseListView(LoginRequiredMixin, SortableListViewMixin, ListView):
+
     template_name = "sheets/history.html"
     paginate_by = 50
     model = Expense
@@ -377,25 +405,89 @@ def budget_dashboard(request, year=None, month=None):
             budget.user = request.user
             budget.year = year
             budget.month = month
-            budget.save()
 
-            if also_next_month:
-                # Create/update same budget for the next month/year
-                next_year = year
-                next_month = month + 1
-                if next_month == 13:
-                    next_month = 1
-                    next_year = year + 1
+            try:
+                budget.save()
 
-                BudgetLimit.objects.update_or_create(
-                    user=request.user,
-                    category=budget.category,
-                    year=next_year,
-                    month=next_month,
-                    defaults={"limit_amount": budget.limit_amount},
-                )
+                if also_next_month:
+                    # Create/update same budget for the next month/year
+                    next_year = year
+                    next_month = month + 1
+                    if next_month == 13:
+                        next_month = 1
+                        next_year = year + 1
 
-        # PRG
+                    BudgetLimit.objects.update_or_create(
+                        user=request.user,
+                        category=budget.category,
+                        year=next_year,
+                        month=next_month,
+                        defaults={"limit_amount": budget.limit_amount},
+                    )
+
+            except Exception as e:
+                # Duplicate budget (unique_together) used to bubble up as a 505.
+                # Convert it into a user-friendly message and re-render the page.
+                from django.db import IntegrityError
+                from django.core.exceptions import ValidationError
+                from django.contrib import messages
+
+                if isinstance(e, (IntegrityError, ValidationError)):
+                    messages.error(
+                        request,
+                        "You already have a budget for this category in the selected month.",
+                        extra_tags="danger"
+                    )
+
+
+                else:
+                    messages.error(request, "Could not save budget. Please try again.")
+
+        # Re-render with current data + any messages
+        budgets = BudgetLimit.objects.filter(
+            user=request.user,
+            year=year,
+            month=month,
+        ).select_related("category")
+
+        spent_by_category = (
+            Expense.objects.filter(
+                user=request.user,
+                date__year=year,
+                date__month=month,
+            )
+            .values("category")
+            .annotate(spent_amount=Sum("amount"))
+        )
+        spent_map = {
+            row["category_id"] if "category_id" in row else row["category"]: row[
+                "spent_amount"
+            ]
+            for row in spent_by_category
+        }
+
+        budget_status = []
+        for b in budgets:
+            spent_amount = spent_map.get(b.category_id, Decimal("0.00"))
+            remaining_amount = b.limit_amount - spent_amount
+            percent_used = None
+            if b.limit_amount and b.limit_amount != 0:
+                percent_used = (spent_amount / b.limit_amount) * Decimal("100")
+
+            budget_status.append(
+                {
+                    "id": b.id,
+                    "category": b.category.name,
+                    "color": b.category.color,
+                    "limit_amount": b.limit_amount,
+                    "spent_amount": spent_amount,
+                    "remaining_amount": remaining_amount,
+                    "percent_used": percent_used.quantize(Decimal("0.1"))
+                    if percent_used is not None
+                    else None,
+                }
+            )
+
         return render(
             request,
             "sheets/budget.html",
@@ -403,9 +495,11 @@ def budget_dashboard(request, year=None, month=None):
                 "title": "Budget",
                 "month": month,
                 "year": year,
+                "budget_status": budget_status,
                 "budget_form": BudgetLimitForm(initial={"month": month, "year": year}),
             },
         )
+
 
     budgets = BudgetLimit.objects.filter(
         user=request.user,
@@ -440,6 +534,7 @@ def budget_dashboard(request, year=None, month=None):
 
         budget_status.append(
             {
+                "id": b.id,
                 "category": b.category.name,
                 "color": b.category.color,
                 "limit_amount": b.limit_amount,
